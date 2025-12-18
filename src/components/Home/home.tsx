@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSearchJob } from "../../hooks/useGetQueries";
 import useScreenSize from "../../hooks/useScreenSize";
-import Jobs from "../Jobs/jobs";
 import { Button } from "../ui/button";
 import {
   InputGroup,
@@ -9,6 +8,8 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 import { SearchIcon } from "lucide-react";
+import JobsMobiileView from "../Jobs/jobsMobileView";
+import JobsDesktopView from "../Jobs/jobsDesktopView";
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -49,7 +50,7 @@ const Home = () => {
           </InputGroup>
           <Button className="w-full font-bold">Find Jobs</Button>
         </form>
-        <Jobs
+        <JobsMobiileView
           searchLoading={searchLoading}
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}
@@ -78,7 +79,7 @@ const Home = () => {
             <Button className="font-bold">Find Jobs</Button>
           </InputGroup>
         </form>
-        <Jobs
+        <JobsDesktopView
           searchLoading={searchLoading}
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}

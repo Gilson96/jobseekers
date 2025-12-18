@@ -37,6 +37,13 @@ export type Job = {
     skills?: string[]
 }
 
+export type JobSearch = {
+    isSearchingJob: boolean;
+    searchedJob?: Job[];
+    searchFetching: boolean;
+    searchLoading: boolean;
+}
+
 export type User = {
     user_id?: number
     name?: string,

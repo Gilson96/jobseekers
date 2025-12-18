@@ -8,11 +8,11 @@ const JobBigCard = ({ jobId }: { jobId: number }) => {
 
   if (isFetching) {
     return (
-      <Loader2 className="animate sticky top-[5rem] animate-spin text-teal-600" />
+      <Loader2 className="animate sticky top-20 animate-spin text-teal-600" />
     );
   }
   return (
-    <article className="sticky top-0 right-0 flex h-[35rem] cursor-pointer flex-col rounded border p-[3%] hover:shadow hover:[&>h2]:underline">
+    <article className="sticky top-0 right-0 flex cursor-pointer flex-col rounded border p-[3%] hover:shadow max-lg:h-100 max-lg:overflow-y-auto lg:h-140 hover:[&>h2]:underline">
       <h2 className="py-[2%] text-xl font-bold">{job?.title}</h2>
       <p className="py-[1%]">{job?.company_name}</p>
       <p className="py-[1%]">{job?.location}</p>
@@ -31,7 +31,7 @@ const JobBigCard = ({ jobId }: { jobId: number }) => {
         </Tooltip>
       </div>
 
-      <div className="overflow-y-auto">
+      <div className="lg:overflow-y-auto">
         <h3 className="py-[4%] text-lg font-medium">Job details</h3>
         <div className="flex w-full flex-wrap items-center gap-3 border-b pb-[5%]">
           <span className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">

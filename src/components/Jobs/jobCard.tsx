@@ -1,4 +1,3 @@
-import { BookMarkedIcon } from "lucide-react";
 import type { Job } from "../../dataTypes";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -12,7 +11,7 @@ const JobCard = ({ job, isFetching, setJobId }: JobCardProps) => {
   return (
     <article
       onClick={() => setJobId(job?.job_id as number)}
-      className="flex h-full w-full cursor-pointer flex-col rounded border p-[3%] hover:shadow hover:[&>h2]:underline"
+      className="flex w-full cursor-pointer items-start flex-col rounded border p-[3%] hover:shadow hover:[&>h2]:underline"
     >
       <h2 className="flex w-full items-center justify-between py-[2%]">
         <span
