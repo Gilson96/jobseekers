@@ -30,7 +30,10 @@ const Home = () => {
   if (mobileView) {
     return (
       <>
-        <section className="flex flex-col items-start justify-center gap-2 border-b py-[8%]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-start justify-center gap-2 border-b py-[8%]"
+        >
           <InputGroup className="h-14">
             <InputGroupInput
               className="italic"
@@ -44,13 +47,8 @@ const Home = () => {
               <SearchIcon color="black" />
             </InputGroupAddon>
           </InputGroup>
-          <Button
-            onClick={() => setIsSearchingJob(true)}
-            className="w-full font-bold"
-          >
-            Find Jobs
-          </Button>
-        </section>
+          <Button className="w-full font-bold">Find Jobs</Button>
+        </form>
         <Jobs
           searchLoading={searchLoading}
           searchFetching={searchFetching}
