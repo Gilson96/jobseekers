@@ -1,16 +1,11 @@
-import { BookMarkedIcon, BriefcaseBusiness, Loader2 } from "lucide-react";
+import { BookMarkedIcon } from "lucide-react";
 import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const JobBigCard = ({ jobId }: { jobId: number }) => {
-  const { job, error, isFetching, isLoading } = useGetOneJob(jobId);
+  const { job } = useGetOneJob(jobId);
 
-  if (isLoading || isFetching) {
-    return (
-      <Loader2 className="animate sticky top-[5rem] animate-spin text-teal-600" />
-    );
-  }
   return (
     <article className="sticky top-0 right-0 flex h-full cursor-pointer flex-col rounded border p-[3%] hover:shadow hover:[&>h2]:underline">
       <h2 className="py-[2%] text-xl font-bold">{job?.title}</h2>
