@@ -1,16 +1,17 @@
+import { Route, Routes } from "react-router";
 import "./App.css";
-import { ThemeProvider } from "./hooks/useTheme-provider";
-import { ThemeToggle } from "./components/ui/theme-toggle";
+import Navigator from "./components/Navigator/navigator";
+import Home from "./components/Home/home";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-        <ThemeToggle />
-        <p className="">Hello world</p>
-      </ThemeProvider>
-    </>
+    <main className="h-full w-full px-[3%] py-[1%]">
+      <Navigator />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </main>
   );
-}
+};
 
 export default App;
