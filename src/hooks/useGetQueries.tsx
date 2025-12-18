@@ -31,3 +31,19 @@ export const useGetOneJob = (job_id: number) => {
 
   return { isLoading, isFetching, error, job: data };
 };
+
+export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {
+  const { isLoading, isFetching, error, data } = useQuery<Job[]>({
+    queryKey: [isSearchingJob],
+    queryFn: () =>
+      axios
+        .get(
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/search?job_title=${searchInput}&company_name=${searchInput}&skills_name=${searchInput}`,
+        )
+        .then((res) => {
+          return res.data;
+        }),
+  });
+
+  return { isLoading, isFetching, error, searchedJob: data };
+};
