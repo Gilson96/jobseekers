@@ -1,14 +1,6 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { useGetAllJobs } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
-
 import JobCard from "./jobCard";
 import type { JobSearch } from "../../dataTypes";
 import { useState } from "react";

@@ -1,10 +1,11 @@
-import { BookMarkedIcon, BriefcaseBusiness, Loader2 } from "lucide-react";
+import { BookMarkedIcon, Loader2 } from "lucide-react";
 import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Link } from "react-router";
 
 const JobBigCard = ({ jobId }: { jobId: number }) => {
-  const { job, error, isFetching, isLoading } = useGetOneJob(jobId);
+  const { job, error, isFetching } = useGetOneJob(jobId);
 
   if (isFetching) {
     return (
@@ -18,7 +19,11 @@ const JobBigCard = ({ jobId }: { jobId: number }) => {
       <p className="py-[1%]">{job?.location}</p>
       <p className="py-[1%]">{job?.type}</p>
       <div className="flex items-center gap-2 border-b pb-2">
-        <Button>Apply for this job</Button>
+        <Button>
+          <Link to={"/application"} state={job}>
+            Apply for this job
+          </Link>
+        </Button>
         <Tooltip>
           <TooltipTrigger asChild>
             <button className="flex w-10 items-center justify-center rounded border p-1.25 dark:bg-teal-500">
