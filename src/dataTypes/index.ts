@@ -45,6 +45,7 @@ export type JobSearch = {
 }
 
 export type User = {
+    id?: number
     user_id?: number
     name?: string,
     avatar_img?: string | null,
@@ -54,6 +55,7 @@ export type User = {
     address?: string,
     cv?: string
     role?: string
+    token?: string
 }
 
 export type Application = {
