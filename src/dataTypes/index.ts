@@ -57,6 +57,7 @@ export type User = {
     role?: string
     token?: string
     skills?: string[]
+    jobs_applied?: Job[]
 }
 
 export type Application = {
@@ -103,10 +104,5 @@ export type Saved_job = {
     saved_job_id?: number,
     user_id?: number,
     job_id?: number,
-    saved_jobs?: [{
-        title: string,
-        job_id: number,
-        location: string,
-        company_name: string
-    }]
+    saved_jobs?: Job[]
 }
