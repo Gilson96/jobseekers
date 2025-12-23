@@ -5,9 +5,9 @@ import Home from "./components/Home/home";
 import Application from "./components/Application/application";
 import Login from "./components/Login/login";
 import User from "./components/User/user";
+import MyJobs from "./components/User/myJobs";
 
 const App = () => {
-  
   return (
     <main className="w-full px-[3%] py-[1%]">
       <Navigator />
@@ -15,7 +15,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/application" element={<Application />} />
-        <Route path="/user"  element={<User />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/myJobs" element={<MyJobs />} />
       </Routes>
     </main>
   );
