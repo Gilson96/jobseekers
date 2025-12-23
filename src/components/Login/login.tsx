@@ -10,15 +10,14 @@ import {
 import { usePostLogin } from "../../hooks/usePostQueries";
 import { useState, type FormEvent } from "react";
 import { Loader2Icon } from "lucide-react";
-import { Navigate, redirect, useNavigate } from "react-router";
+import { Navigate } from "react-router";
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState("");
-  const { error, isError, isPending, isSuccess, mutate } = usePostLogin({
+  const { isError, isPending, isSuccess, mutate } = usePostLogin({
     email: userEmail,
     password: "user123",
   });
-  let navigate = useNavigate();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate();
