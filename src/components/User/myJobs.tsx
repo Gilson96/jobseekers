@@ -45,7 +45,7 @@ export const SavedJobs = () => {
       </div>
     );
   }
-  console.log(savedJobs?.flat(2));
+
   return savedJobs?.map((job) => {
     return job.saved_jobs?.map((saved) => (
       <div className="border-b pb-[3%] leading-7">
