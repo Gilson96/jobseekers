@@ -1,13 +1,13 @@
-import { BookMarkedIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Button } from "../ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { Link } from "react-router";
+import AddToSavedJobs from "../User/addToSavedJobs";
 
 const JobBigCard = ({ jobId }: { jobId: number }) => {
-  const { job, error, isFetching } = useGetOneJob(jobId);
-
-  if (isFetching) {
+  const { job, isFetching: jobFetching } = useGetOneJob(jobId);
+  
+  if (jobFetching) {
     return (
       <Loader2 className="animate sticky top-20 animate-spin text-teal-600" />
     );
@@ -24,16 +24,7 @@ const JobBigCard = ({ jobId }: { jobId: number }) => {
             Apply for this job
           </Link>
         </Button>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button className="flex w-10 items-center justify-center rounded border p-1.25 dark:bg-teal-500">
-              <BookMarkedIcon />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>You must sign in before saving a job</p>
-          </TooltipContent>
-        </Tooltip>
+        <AddToSavedJobs job={job!} />
       </div>
 
       <div className="lg:overflow-y-auto">
