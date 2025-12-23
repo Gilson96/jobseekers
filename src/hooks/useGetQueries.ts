@@ -56,11 +56,11 @@ export const useGetUser = () => {
 export const useGetSavedJob = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isLoading, isFetching, data } = useQuery<Saved_job[]>({
-    queryKey: [userLogin.id],
+    queryKey: ["saved_jobs"],
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${userLogin.id}`,
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/1`,
           { headers: { "Authorization": `Bearer ${userLogin.token}` } }
         )
         .then((res) => {
