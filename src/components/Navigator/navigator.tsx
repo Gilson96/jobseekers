@@ -1,6 +1,13 @@
 import { EarthIcon, UserCircle2 } from "lucide-react";
 import { Link } from "react-router";
 import { useUserLoginStore } from "../../hooks/store";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const Navigator = () => {
   const user = useUserLoginStore((s) => s.user);
@@ -19,9 +26,20 @@ const Navigator = () => {
             Sign in
           </Link>
         ) : (
-          <Link to={"/user"} className="font-bold text-teal-500">
-            <UserCircle2 color="oklch(70.4% 0.14 182.503)" />
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <UserCircle2 className="cursor-pointer" color="oklch(70.4% 0.14 182.503)" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="relative right-[20%] w-20 min-w-0 bg-white md:right-[30%]">
+              <DropdownMenuItem>
+                <Link to={"/user"}>Profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link to={"/myJobs"}>My jobs</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
     </nav>
