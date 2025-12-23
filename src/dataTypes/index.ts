@@ -56,6 +56,7 @@ export type User = {
     cv?: string
     role?: string
     token?: string
+    skills?: string[]
 }
 
 export type Application = {
