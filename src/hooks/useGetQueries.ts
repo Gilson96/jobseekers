@@ -8,7 +8,9 @@ export const useGetAllJobs = () => {
     queryKey: ["jobs"],
     queryFn: () =>
       axios
-        .get("http://jobseekers-api-c462d8f75521.herokuapp.com/api/job")
+        .get("http://jobseekers-api-c462d8f75521.herokuapp.com/api/job",
+
+        )
         .then((res) => {
           return res.data;
         }),
@@ -35,7 +37,7 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
-  const { isLoading, isFetching, error, data } = useQuery<User[]>({
+  const { isLoading, isFetching, error, data } = useQuery<{ user: User }>({
     queryKey: [userLogin.id],
     queryFn: () =>
       axios

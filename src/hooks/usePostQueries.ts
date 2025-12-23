@@ -16,7 +16,7 @@ export const usePostLogin = (login: User) => {
           .then((res) => {
             setUserDetails(res.data)
             return res.data;
-          }).catch(err => console.log(err));
+          })
       },
     });
 
