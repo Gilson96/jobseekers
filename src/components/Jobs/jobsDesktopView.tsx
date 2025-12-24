@@ -11,6 +11,7 @@ const Jobs = ({
   searchedJob,
   searchFetching,
   searchLoading,
+  user,
 }: JobSearch) => {
   const { jobs, error, isFetching, isLoading } = useGetAllJobs();
   const screenSize = useScreenSize();
@@ -33,8 +34,18 @@ const Jobs = ({
         <section className="w-[80%] place-self-center">
           <h2 className="py-[2%] text-lg font-medium">Jobs for you</h2>
           <div className="flex h-60 w-full justify-between gap-10">
-            <JobCard setJobId={setJobId} job={undefined} isFetching={true} />
-            <JobCard setJobId={setJobId} job={undefined} isFetching={true} />
+            <JobCard
+              user={user!}
+              setJobId={setJobId}
+              job={undefined}
+              isFetching={true}
+            />
+            <JobCard
+              user={user!}
+              setJobId={setJobId}
+              job={undefined}
+              isFetching={true}
+            />
           </div>
         </section>
       );
@@ -47,13 +58,23 @@ const Jobs = ({
           <li className="flex w-[50%] flex-col gap-3">
             {isSearchingJob
               ? searchedJob?.map((job) => (
-                  <JobCard setJobId={setJobId} job={job} isFetching={false} />
+                  <JobCard
+                    user={user!}
+                    setJobId={setJobId}
+                    job={job}
+                    isFetching={false}
+                  />
                 ))
               : jobs?.map((job) => (
-                  <JobCard setJobId={setJobId} job={job} isFetching={false} />
+                  <JobCard
+                    user={user!}
+                    setJobId={setJobId}
+                    job={job}
+                    isFetching={false}
+                  />
                 ))}
           </li>
-          <JobBigCard jobId={jobId} />
+          <JobBigCard user={user!} jobId={jobId} />
         </div>
       </ul>
     );

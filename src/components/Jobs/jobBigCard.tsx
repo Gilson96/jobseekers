@@ -1,12 +1,17 @@
-import { Loader2 } from "lucide-react";
+import { CircleCheck, Loader2 } from "lucide-react";
 import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import AddToSavedJobs from "../User/addToSavedJobs";
+import type { User } from "../../dataTypes";
 
-const JobBigCard = ({ jobId }: { jobId: number }) => {
+const JobBigCard = ({ jobId, user }: { jobId: number; user: User }) => {
   const { job, isFetching: jobFetching } = useGetOneJob(jobId);
-  
+
+  const isJobApplied = user?.jobs_applied?.some(
+    (applied) => applied.job_id === job?.job_id,
+  );
+
   if (jobFetching) {
     return (
       <Loader2 className="animate sticky top-20 animate-spin text-teal-600" />
@@ -19,14 +24,22 @@ const JobBigCard = ({ jobId }: { jobId: number }) => {
       <p className="py-[1%]">{job?.location}</p>
       <p className="py-[1%]">{job?.type}</p>
       <div className="flex items-center gap-2 border-b pb-2">
-        <Button>
-          <Link to={"/application"} state={job}>
-            Apply for this job
-          </Link>
-        </Button>
-        <AddToSavedJobs job={job!} />
+        {isJobApplied ? (
+          <span className="flex items-center justify-between gap-1">
+            <CircleCheck className="text-green-500" />
+            <span className="font-medium italic">Applied</span>
+          </span>
+        ) : (
+          <>
+            <Button>
+              <Link to={"/application"} state={job}>
+                Apply for this job
+              </Link>
+            </Button>
+            <AddToSavedJobs job={job!} />
+          </>
+        )}
       </div>
-
       <div className="lg:overflow-y-auto">
         <h3 className="py-[4%] text-lg font-medium">Job details</h3>
         <div className="flex w-full flex-wrap items-center gap-3 border-b pb-[5%]">

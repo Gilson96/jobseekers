@@ -11,8 +11,9 @@ const JobsMobiileView = ({
   searchedJob,
   searchFetching,
   searchLoading,
+  user,
 }: JobSearch) => {
-  const { jobs, error, isFetching, isLoading } = useGetAllJobs();
+  const { jobs, isFetching, isLoading } = useGetAllJobs();
   const [jobId, setJobId] = useState(1);
 
   if (isLoading || searchLoading) {
@@ -28,7 +29,12 @@ const JobsMobiileView = ({
     return (
       <section className="py-[2%]">
         <h2 className="pb-[5%] font-medium">Jobs for you</h2>
-        <JobCard setJobId={setJobId} job={undefined} isFetching={isFetching} />
+        <JobCard
+          user={user!}
+          setJobId={setJobId}
+          job={undefined}
+          isFetching={isFetching}
+        />
       </section>
     );
   }
@@ -42,18 +48,24 @@ const JobsMobiileView = ({
             {isSearchingJob
               ? searchedJob?.map((job) => (
                   <JobCard
+                    user={user!}
                     setJobId={setJobId}
                     job={job}
                     isFetching={searchFetching}
                   />
                 ))
               : jobs?.map((job) => (
-                  <JobCard setJobId={setJobId} job={job} isFetching={false} />
+                  <JobCard
+                    user={user!}
+                    setJobId={setJobId}
+                    job={job}
+                    isFetching={false}
+                  />
                 ))}
           </li>
         </DialogTrigger>
         <DialogContent>
-          <JobBigCard jobId={jobId} />
+          <JobBigCard jobId={jobId} user={user!}/>
         </DialogContent>
       </Dialog>
     </ul>

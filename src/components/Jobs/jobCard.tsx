@@ -1,17 +1,23 @@
-import type { Job } from "../../dataTypes";
+import { CircleCheck } from "lucide-react";
+import type { Job, User } from "../../dataTypes";
 import type { Dispatch, SetStateAction } from "react";
 
 type JobCardProps = {
   job?: Job;
   isFetching: boolean;
   setJobId: Dispatch<SetStateAction<number>>;
+  user: User;
 };
 
-const JobCard = ({ job, isFetching, setJobId }: JobCardProps) => {
+const JobCard = ({ job, isFetching, setJobId, user }: JobCardProps) => {
+  const isJobApplied = user?.jobs_applied?.some(
+    (applied) => applied.job_id === job?.job_id,
+  );
+
   return (
     <article
       onClick={() => setJobId(job?.job_id as number)}
-      className="flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline"
+      className={`flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline`}
     >
       <h2 className="flex w-full items-center justify-between py-[2%]">
         <span
@@ -23,6 +29,12 @@ const JobCard = ({ job, isFetching, setJobId }: JobCardProps) => {
         >
           {isFetching ? "fetching" : job?.title}
         </span>
+        {isJobApplied && (
+          <span className="flex items-center gap-1">
+            <CircleCheck className="text-green-500" />
+            <span className="font-medium italic">Applied</span>
+          </span>
+        )}
       </h2>
       <p
         className={
