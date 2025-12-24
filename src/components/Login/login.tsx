@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   if (isSuccess) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/home" replace />;
   }
   return (
     <section className="flex h-[80vh] flex-col place-items-center items-center justify-center">
