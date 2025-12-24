@@ -4,38 +4,21 @@ import {
   ApplicationJobDetailsDesktopView,
   ApplicationJobDetailsMobileView,
 } from "./applicationJobDetails";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 import ApplicationStep1 from "./applicationStep1";
 import ApplicationStep2 from "./applicationStep2";
 import ApplicationStep3 from "./applicationStep3";
 import type { Job } from "../../dataTypes";
 import { useLocation } from "react-router";
 import ApplicationStep4 from "./applicationStep4";
-
-export type ApplicationProps = {
-  step: number;
-  setUserDetails?: Dispatch<
-    SetStateAction<{
-      email?: string;
-      number?: string;
-      address?: string;
-      cv?: File;
-    }>
-  >;
-  userDetails?: {
-    email?: string | undefined;
-    number?: string | undefined;
-    address?: string | undefined;
-    cv?: File | undefined;
-  };
-  setStep: Dispatch<SetStateAction<number>>;
-  job?: Job;
-};
+import { useGetUser } from "../../hooks/useGetQueries";
+import { Loader2Icon } from "lucide-react";
 
 const Application = () => {
   const { state }: { state: Job } = useLocation();
   const screenSize = useScreenSize();
   const [step, setStep] = useState(1);
+  const { userData: user, isFetching, isLoading } = useGetUser();
   const [userDetails, setUserDetails] = useState<{
     email?: string;
     number?: string;
@@ -50,29 +33,47 @@ const Application = () => {
   const job: Job = state;
   const mobileView = screenSize.width < 1000;
 
+  if (isFetching || isLoading) {
+    return (
+      <Loader2Icon className="animate flex h-[50vh] animate-spin items-center justify-center place-self-center text-teal-500" />
+    );
+  }
+
   if (mobileView) {
     return (
       <section>
         {step <= 3 && (
           <>
             <ApplicationJobDetailsMobileView job={job} />
+            {user?.user.user_id !== undefined && (
+              <h2 className="pt-[3%] font-medium">
+                Do you want to change something for this application?
+              </h2>
+            )}
             <div className="flex items-center justify-between gap-8 py-[5%]">
               <Progress value={step * 30} max={100} className="text-teal-600" />
               <span className="text-xs">{step * 30}%</span>
             </div>
           </>
         )}
+
         <ApplicationStep1
           step={step}
           userDetails={userDetails}
           setStep={setStep}
           setUserDetails={setUserDetails}
+          user={user}
+          isFetching={isFetching}
+          isLoading={isLoading}
         />
         <ApplicationStep2
           step={step}
           userDetails={userDetails}
           setStep={setStep}
           setUserDetails={setUserDetails}
+          user={user}
+          isFetching={isFetching}
+          isLoading={isLoading}
         />
         <ApplicationStep3
           step={step}
@@ -80,8 +81,16 @@ const Application = () => {
           setStep={setStep}
           setUserDetails={setUserDetails}
           job={job}
+          user={user}
+          isFetching={isFetching}
+          isLoading={isLoading}
         />
-        <ApplicationStep4 setStep={() => {}} step={step} />
+        <ApplicationStep4
+          setUserDetails={() => {}}
+          setStep={() => {}}
+          step={step}
+          user={user}
+        />
       </section>
     );
   }
@@ -111,12 +120,18 @@ const Application = () => {
             userDetails={userDetails}
             setStep={setStep}
             setUserDetails={setUserDetails}
+            user={user}
+            isFetching={isFetching}
+            isLoading={isLoading}
           />
           <ApplicationStep2
             step={step}
             userDetails={userDetails}
             setStep={setStep}
             setUserDetails={setUserDetails}
+            user={user}
+            isFetching={isFetching}
+            isLoading={isLoading}
           />
           <ApplicationStep3
             step={step}
@@ -124,9 +139,17 @@ const Application = () => {
             setStep={setStep}
             setUserDetails={setUserDetails}
             job={job}
+            user={user}
+            isFetching={isFetching}
+            isLoading={isLoading}
           />
         </div>
-        <ApplicationStep4 setStep={() => {}} step={step} />
+        <ApplicationStep4
+          setUserDetails={() => {}}
+          setStep={() => {}}
+          step={step}
+          user={user}
+        />
       </section>
       {step < 4 && (
         <section className="h-full w-full overflow-hidden bg-neutral-200">

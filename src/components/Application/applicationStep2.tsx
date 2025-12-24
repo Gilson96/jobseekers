@@ -1,7 +1,7 @@
+import type { ApplicationProps } from "../../dataTypes";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import type { ApplicationProps } from "./application";
 
 const ApplicationStep2 = ({
   step,

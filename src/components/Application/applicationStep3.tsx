@@ -1,17 +1,68 @@
-import type { Job } from "../../dataTypes";
+import { toast } from "sonner";
+import type { ApplicationProps, Job } from "../../dataTypes";
 import { useUserLoginStore } from "../../hooks/store";
+import { usePostApplication } from "../../hooks/usePostQueries";
 import { Button } from "../ui/button";
-import type { ApplicationProps } from "./application";
+import { Loader2Icon } from "lucide-react";
 
 const ApplicationStep3 = ({
   step,
   userDetails,
   setStep,
   job,
+  user,
 }: ApplicationProps) => {
   const setUserDetails = useUserLoginStore((s) => s.setUserDetails);
-  const user = useUserLoginStore((s) => s.user);
+  const userGuest = useUserLoginStore((s) => s.user);
+  const { isError, isPending, isSuccess, mutate } = usePostApplication(
+    user?.user.user_id!,
+    Number(job?.job_id)!,
+  );
 
+  // const handleApplication = () => {
+  //   if (user?.user.user_id === undefined) {
+  //     return (
+  //       <Button
+  //         onClick={() => {
+  //           (setUserDetails({
+  //             ...user,
+  //             email: userDetails?.email,
+  //             number: userDetails?.number,
+  //             address: userDetails?.address,
+  //             jobs_applied: [...userGuest.jobs_applied!, job] as Job[],
+  //           }),
+  //             setStep((prev) => prev + 1));
+  //         }}
+  //         className="w-full"
+  //       >
+  //         {isPending ? (
+  //           <Loader2Icon className="animate animate-spin text-teal-500" />
+  //         ) : (
+  //           "Send"
+  //         )}
+  //       </Button>
+  //     );
+  //   } else {
+  //     return (
+  //       <Button
+  //         onClick={() => {
+  //           mutate();
+  //         }}
+  //         className="w-full"
+  //       >
+  //         Send
+  //       </Button>
+  //     );
+  //   }
+  // };
+
+  // if (isSuccess) {
+  //   return setStep((prev) => prev + 1);
+  // }
+
+  // if (isError) {
+  //   return toast.error("Somenthing went wrong. Try again later");
+  // }
   return (
     <>
       {step === 3 && (
@@ -38,21 +89,7 @@ const ApplicationStep3 = ({
             </div>
           </section>
           <div className="flex flex-col gap-2">
-            <Button
-              onClick={() => {
-                (setUserDetails({
-                  ...user,
-                  email: userDetails?.email,
-                  number: userDetails?.number,
-                  address: userDetails?.address,
-                  jobs_applied: [...user.jobs_applied!, job] as Job[],
-                }),
-                  setStep((prev) => prev + 1));
-              }}
-              className="w-full"
-            >
-              Send
-            </Button>
+            {/* {handleApplication()} */}
             <Button
               onClick={() => setStep((prev) => prev - 1)}
               className="w-full text-teal-600"
