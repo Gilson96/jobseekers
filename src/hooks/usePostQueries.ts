@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import type { Job, Saved_job, User } from "../dataTypes";
+import axios, { type AxiosResponse } from "axios";
+import type { Application, Application_job, Job, Saved_job, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
 export const usePostLogin = (login: User) => {
@@ -43,20 +43,37 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
   return { isPending, user: data, isError, isSuccess, mutate };
 };
 
-export const usePostApplication = (save_job: Saved_job) => {
+export const usePostApplication = (user_id: number, job_id: number) => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, data, isError, isSuccess, mutate } =
-    useMutation<User>({
+    useMutation<AxiosResponse[]>({
       mutationFn: () => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
-            { user_id: save_job.user_id, job_id: save_job.job_id },
+            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
+            { user_id: user_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
           .then((res) => {
             return res.data;
+          }).then((res: { application: Application }) => {
+            return Promise.all([axios
+              .post(
+                "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
+                { application_id: res.application.application_id, user_id: res.application.user_id },
+                { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+              ),
+            axios
+              .post(
+                "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                { application_id: res.application.application_id, job_id: res.application.job_id },
+                { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+              )],
+            ).then((res) => {
+              return res
+            })
           })
+
       },
     });
 
