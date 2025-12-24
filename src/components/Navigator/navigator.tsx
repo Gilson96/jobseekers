@@ -16,7 +16,7 @@ const Navigator = () => {
 
   return (
     <nav className="flex h-20 w-full items-center justify-between border-b">
-      <Link to={"/"} className="flex items-center gap-1">
+      <Link to={"/home"} className="flex items-center gap-1">
         <span>
           <EarthIcon color="oklch(70.4% 0.14 182.503)" />
         </span>
