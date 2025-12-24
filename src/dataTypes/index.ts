@@ -42,6 +42,7 @@ export type JobSearch = {
     searchedJob?: Job[];
     searchFetching: boolean;
     searchLoading: boolean;
+    user?: User
 }
 
 export type User = {
