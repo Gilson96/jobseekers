@@ -15,7 +15,7 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     isLoading: savedJobsLoading,
   } = useGetSavedJob();
   const { isError, isPending, isSuccess, mutate } = usePostSavedJobs(saved_job);
-console.log(user.id)
+
   const flatSavedJobs = savedJobs
     ?.map((job) => {
       return job.saved_jobs?.flat(Infinity);
@@ -38,7 +38,7 @@ console.log(user.id)
     });
   }
 
-  if (user === undefined) {
+  if (user.id === undefined) {
     return (
       <Tooltip>
         <TooltipTrigger asChild>
