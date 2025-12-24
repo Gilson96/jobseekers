@@ -6,13 +6,15 @@ import Application from "./components/Application/application";
 import Login from "./components/Login/login";
 import User from "./components/User/user";
 import MyJobs from "./components/User/myJobs";
+import StartPage from "./components/Home/startPage";
 
 const App = () => {
   return (
     <main className="w-full px-[3%] py-[1%]">
       <Navigator />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<StartPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/application" element={<Application />} />
         <Route path="/user" element={<User />} />
