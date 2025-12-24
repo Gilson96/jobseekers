@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from "react"
+
 export type Company = {
     company_id?: number
     company_name?: string,
@@ -60,6 +62,29 @@ export type User = {
     skills?: string[]
     jobs_applied?: Job[]
 }
+
+export type ApplicationProps = {
+    step: number;
+    setUserDetails: Dispatch<
+        SetStateAction<{
+            email?: string;
+            number?: string;
+            address?: string;
+            cv?: File;
+        }>
+    >;
+    userDetails?: {
+        email?: string | undefined;
+        number?: string | undefined;
+        address?: string | undefined;
+        cv?: File | undefined;
+    };
+    setStep: Dispatch<SetStateAction<number>>;
+    job?: Job;
+    user?: { user: User };
+    isFetching: boolean,
+    isLoading: boolean
+};
 
 export type Application = {
     application_id?: number,
