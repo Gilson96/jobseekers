@@ -10,6 +10,7 @@ import {
 import { SearchIcon } from "lucide-react";
 import JobsMobiileView from "../Jobs/jobsMobileView";
 import JobsDesktopView from "../Jobs/jobsDesktopView";
+import { useUserLoginStore } from "../../hooks/store";
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -17,11 +18,11 @@ const Home = () => {
   const screenSize = useScreenSize();
   const mobileView = screenSize.width < 1000;
   const {
-    error,
     isFetching: searchFetching,
     isLoading: searchLoading,
     searchedJob,
   } = useSearchJob(searchInput, isSearchingJob);
+  const user = useUserLoginStore((s) => s.user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +56,7 @@ const Home = () => {
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}
           searchedJob={searchedJob}
+          user={user}
         />
       </>
     );
@@ -84,6 +86,7 @@ const Home = () => {
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}
           searchedJob={searchedJob}
+          user={user}
         />
       </>
     );
