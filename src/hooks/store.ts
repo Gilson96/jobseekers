@@ -1,24 +1,21 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Saved_job, User } from '../dataTypes'
+import type { User } from '../dataTypes'
 
 type UserLoginTypes = {
     user: User
-    setUserDetails: (user?: User, saved_jobs?: Saved_job) => void
+    setUserDetails: (user?: User) => void
     logout: () => void
 }
 
 export const useUserLoginStore = create<UserLoginTypes>()(
     persist(
         (set, get) => ({
-            user: { token: '' },
-            setUserDetails: (user?: User, saved_jobs?: Saved_job) => set(() => ({ user: user, saved_jobs: saved_jobs })),
-            logout: () => set(() => ({ user: {}, token: '', localStorage: localStorage.removeItem('userLogin-storage') }))
+            user: {},
+            setUserDetails: (user?: User) => set(() => ({ user: user })),
+            logout: () => set(() => ({ user: {}, localStorage: localStorage.removeItem('userLogin-storage') }))
         }),
-        {
-            name: 'userLogin-storage',
-
-        }
+        { name: 'userLogin-storage' }
     ),
 )
 

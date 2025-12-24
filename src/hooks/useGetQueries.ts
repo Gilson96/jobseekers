@@ -38,12 +38,12 @@ export const useGetOneJob = (job_id: number) => {
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isLoading, isFetching, data } = useQuery<{ user: User }>({
-    queryKey: [userLogin.id],
+    queryKey: [userLogin?.id],
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/${userLogin.id}`,
-          { headers: { "Authorization": `Bearer ${userLogin.token}` } }
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/${userLogin?.id}`,
+          { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
           return res.data;
@@ -61,7 +61,7 @@ export const useGetSavedJob = () => {
       axios
         .get(
           `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/1`,
-          { headers: { "Authorization": `Bearer ${userLogin.token}` } }
+          { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
           return res.data;

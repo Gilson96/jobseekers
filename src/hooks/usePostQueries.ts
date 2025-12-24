@@ -32,7 +32,27 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
           .post(
             "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
             { user_id: save_job.user_id, job_id: save_job.job_id },
-            { headers: { "Authorization": `Bearer ${userLogin.token}` } }
+            { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+          )
+          .then((res) => {
+            return res.data;
+          })
+      },
+    });
+
+  return { isPending, user: data, isError, isSuccess, mutate };
+};
+
+export const usePostApplication = (save_job: Saved_job) => {
+  const userLogin = useUserLoginStore(s => s.user)
+  const { isPending, data, isError, isSuccess, mutate } =
+    useMutation<User>({
+      mutationFn: () => {
+        return axios
+          .post(
+            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
+            { user_id: save_job.user_id, job_id: save_job.job_id },
+            { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
           .then((res) => {
             return res.data;
