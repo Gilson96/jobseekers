@@ -3,7 +3,7 @@ import { useGetOneJob } from "../../hooks/useGetQueries";
 import type { JobCardProps } from "../../dataTypes";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
-import AddToSavedJobs from "../User/addToSavedJobs";
+import AddToSavedJobs from "../User/savedJobsToggle";
 
 const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
   const { job, isFetching: jobFetching } = useGetOneJob(job_id!);
