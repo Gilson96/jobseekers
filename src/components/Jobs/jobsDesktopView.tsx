@@ -13,11 +13,12 @@ const Jobs = ({
   searchLoading,
   user,
   guestUser,
+  userIsFetching,
 }: JobSearch) => {
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const screenSize = useScreenSize();
   const mobileView = screenSize.width < 1000;
-  const [jobId, setJobId] = useState(1);
+  const [job_id, setJob_id] = useState(1);
 
   if (mobileView) {
   } else {
@@ -36,18 +37,19 @@ const Jobs = ({
           <h2 className="py-[2%] text-lg font-medium">Jobs for you</h2>
           <div className="flex h-60 w-full justify-between gap-10">
             <JobCard
-              user={user?.user}
-              setJobId={setJobId}
+              user={user}
+              setJob_id={setJob_id}
               job={undefined}
               isFetching={true}
               guestUser={guestUser}
             />
             <JobCard
-              user={user?.user}
-              setJobId={setJobId}
+              guestUser={guestUser}
+              user={user!}
+              userIsFetching={userIsFetching}
+              setJob_id={setJob_id}
               job={undefined}
-              isFetching={true}
-              guestUser
+              isFetching={isFetching}
             />
           </div>
         </section>
@@ -62,8 +64,8 @@ const Jobs = ({
             {isSearchingJob
               ? searchedJob?.map((job) => (
                   <JobCard
-                    user={user!.user}
-                    setJobId={setJobId}
+                    user={user}
+                    setJob_id={setJob_id}
                     job={job}
                     isFetching={false}
                     guestUser={guestUser}
@@ -71,15 +73,21 @@ const Jobs = ({
                 ))
               : jobs?.map((job) => (
                   <JobCard
-                    user={user!.user}
-                    setJobId={setJobId}
+                    user={user}
+                    setJob_id={setJob_id}
                     job={job}
                     isFetching={false}
                     guestUser={guestUser}
                   />
                 ))}
           </li>
-          <JobBigCard user={user!} guestUser={guestUser} jobId={jobId} />
+          <JobBigCard
+            setJob_id={() => {}}
+            job_id={job_id}
+            guestUser={guestUser}
+            user={user!}
+            userIsFetching={userIsFetching}
+          />
         </div>
       </ul>
     );
