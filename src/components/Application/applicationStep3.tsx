@@ -4,6 +4,7 @@ import { useUserLoginStore } from "../../hooks/store";
 import { usePostApplication } from "../../hooks/usePostQueries";
 import { Button } from "../ui/button";
 import { Loader2Icon } from "lucide-react";
+import { Navigate } from "react-router";
 
 const ApplicationStep3 = ({
   step,
@@ -19,50 +20,29 @@ const ApplicationStep3 = ({
     Number(job?.job_id)!,
   );
 
-  // const handleApplication = () => {
-  //   if (user?.user.user_id === undefined) {
-  //     return (
-  //       <Button
-  //         onClick={() => {
-  //           (setUserDetails({
-  //             ...user,
-  //             email: userDetails?.email,
-  //             number: userDetails?.number,
-  //             address: userDetails?.address,
-  //             jobs_applied: [...userGuest.jobs_applied!, job] as Job[],
-  //           }),
-  //             setStep((prev) => prev + 1));
-  //         }}
-  //         className="w-full"
-  //       >
-  //         {isPending ? (
-  //           <Loader2Icon className="animate animate-spin text-teal-500" />
-  //         ) : (
-  //           "Send"
-  //         )}
-  //       </Button>
-  //     );
-  //   } else {
-  //     return (
-  //       <Button
-  //         onClick={() => {
-  //           mutate();
-  //         }}
-  //         className="w-full"
-  //       >
-  //         Send
-  //       </Button>
-  //     );
-  //   }
-  // };
+  const handleApplication = () => {
+    if (user?.user.user_id === undefined) {
+      return (
+        setUserDetails({
+          ...user,
+          email: userDetails?.email,
+          number: userDetails?.number,
+          address: userDetails?.address,
+          jobs_applied: [...userGuest.jobs_applied!, job] as Job[],
+        }),
+        setStep((prev) => prev + 1)
+      );
+    } else {
+      mutate();
+    }
+  };
 
-  // if (isSuccess) {
-  //   return setStep((prev) => prev + 1);
-  // }
-
-  // if (isError) {
-  //   return toast.error("Somenthing went wrong. Try again later");
-  // }
+  if (isSuccess) {
+    return <Navigate to="/home" replace />;
+  }
+  if (isError) {
+    return toast.error("Somenthing went wrong. Try again later");
+  }
   return (
     <>
       {step === 3 && (
@@ -89,7 +69,13 @@ const ApplicationStep3 = ({
             </div>
           </section>
           <div className="flex flex-col gap-2">
-            {/* {handleApplication()} */}
+            <Button onClick={handleApplication} className="w-full">
+              {isPending ? (
+                <Loader2Icon className="animate animate-spin text-teal-500" />
+              ) : (
+                "Send"
+              )}
+            </Button>
             <Button
               onClick={() => setStep((prev) => prev - 1)}
               className="w-full text-teal-600"

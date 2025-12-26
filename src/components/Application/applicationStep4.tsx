@@ -1,10 +1,9 @@
 import { Send } from "lucide-react";
-import type { ApplicationProps } from "./application";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
+import type { ApplicationProps } from "../../dataTypes";
 
 const ApplicationStep4 = ({ step }: ApplicationProps) => {
-  console.log(step);
 
   return (
     <>
