@@ -39,12 +39,25 @@ export type Job = {
     skills?: string[]
 }
 
+export type JobCardProps = {
+    job?: Job;
+    job_id?: number
+    isFetching?: boolean;
+    setJob_id: Dispatch<SetStateAction<number>>;
+    guestUser?: User;
+    user?: { user: User };
+    userIsFetching?: boolean;
+}
+
 export type JobSearch = {
     isSearchingJob: boolean;
     searchedJob?: Job[];
     searchFetching: boolean;
     searchLoading: boolean;
-    user?: User
+    user?: { user: User }
+    guestUser: User
+    userIsFetching: boolean
+    userIsLoading: boolean
 }
 
 export type User = {
