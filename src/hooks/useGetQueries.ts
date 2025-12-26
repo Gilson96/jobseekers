@@ -9,7 +9,6 @@ export const useGetAllJobs = () => {
     queryFn: () =>
       axios
         .get("http://jobseekers-api-c462d8f75521.herokuapp.com/api/job",
-
         )
         .then((res) => {
           return res.data;
@@ -21,7 +20,7 @@ export const useGetAllJobs = () => {
 
 export const useGetOneJob = (job_id: number) => {
   const { isLoading, isFetching, error, data } = useQuery<Job>({
-    queryKey: [job_id],
+    queryKey: ["job", job_id],
     queryFn: () =>
       axios
         .get(
@@ -37,8 +36,9 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
+  console.log(userLogin)
   const { isLoading, isFetching, data } = useQuery<{ user: User }>({
-    queryKey: [userLogin?.id],
+    queryKey: ["user", userLogin?.id],
     queryFn: () =>
       axios
         .get(
