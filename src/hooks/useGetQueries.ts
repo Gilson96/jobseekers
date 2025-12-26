@@ -36,7 +36,6 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
-  console.log(userLogin)
   const { isLoading, isFetching, data } = useQuery<{ user: User }>({
     queryKey: ["user", userLogin?.id],
     queryFn: () =>

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import axios, { type AxiosResponse } from "axios";
-import type { Application, Application_job, Job, Saved_job, User } from "../dataTypes";
+import type { Application, Saved_job, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
 export const usePostLogin = (login: User) => {
@@ -26,7 +26,7 @@ export const usePostLogin = (login: User) => {
 export const usePostSavedJobs = (save_job: Saved_job) => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, data, isError, isSuccess, mutate } =
-    useMutation<User>({
+    useMutation({
       mutationFn: () => {
         return axios
           .post(
@@ -34,9 +34,7 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
             { user_id: save_job.user_id, job_id: save_job.job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
-          .then((res) => {
-            return res.data;
-          })
+          .then(() => { })
       },
     });
 
