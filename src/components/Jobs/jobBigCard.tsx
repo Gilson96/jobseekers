@@ -1,16 +1,18 @@
 import { CircleCheck, Loader2 } from "lucide-react";
 import { useGetOneJob } from "../../hooks/useGetQueries";
+import type { JobCardProps } from "../../dataTypes";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import AddToSavedJobs from "../User/addToSavedJobs";
-import type { User } from "../../dataTypes";
 
-const JobBigCard = ({ jobId, user }: { jobId: number; user: User }) => {
-  const { job, isFetching: jobFetching } = useGetOneJob(jobId);
+const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
+  const { job, isFetching: jobFetching } = useGetOneJob(job_id!);
 
-  const isJobApplied = user?.jobs_applied?.some(
-    (applied) => applied.job_id === job?.job_id,
-  );
+  const isJobApplied =
+    guestUser?.jobs_applied?.some(
+      (applied) => applied.job_id === job?.job_id,
+    ) ||
+    user?.user?.jobs_applied?.some((applied) => applied.job_id === job?.job_id);
 
   if (jobFetching) {
     return (

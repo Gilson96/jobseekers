@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchJob } from "../../hooks/useGetQueries";
+import { useGetUser, useSearchJob } from "../../hooks/useGetQueries";
 import useScreenSize from "../../hooks/useScreenSize";
 import { Button } from "../ui/button";
 import {
@@ -22,12 +22,19 @@ const Home = () => {
     isLoading: searchLoading,
     searchedJob,
   } = useSearchJob(searchInput, isSearchingJob);
-  const user = useUserLoginStore((s) => s.user);
+  const {
+    isFetching: userIsFetching,
+    isLoading: userIsLoading,
+    userData: user,
+  } = useGetUser();
+
+  const guestUser = useUserLoginStore((s) => s.user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSearchingJob(true);
   };
+
 
   if (mobileView) {
     return (
@@ -55,7 +62,10 @@ const Home = () => {
           searchLoading={searchLoading}
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}
+          userIsFetching={userIsFetching}
+          userIsLoading={userIsLoading}
           searchedJob={searchedJob}
+          guestUser={guestUser}
           user={user}
         />
       </>
@@ -86,7 +96,10 @@ const Home = () => {
           searchFetching={searchFetching}
           isSearchingJob={isSearchingJob}
           searchedJob={searchedJob}
+          guestUser={guestUser}
           user={user}
+          userIsFetching={userIsFetching}
+          userIsLoading={userIsLoading}
         />
       </>
     );

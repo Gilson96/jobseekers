@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { useGetAllJobs } from "../../hooks/useGetQueries";
+import { useGetAllJobs, useGetUser } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
 import JobCard from "./jobCard";
 import type { JobSearch } from "../../dataTypes";
@@ -12,9 +12,12 @@ const JobsMobiileView = ({
   searchFetching,
   searchLoading,
   user,
+  guestUser,
+  userIsFetching,
+  userIsLoading,
 }: JobSearch) => {
   const { jobs, isFetching, isLoading } = useGetAllJobs();
-  const [jobId, setJobId] = useState(1);
+  const [job_id, setJob_id] = useState(1);
 
   if (isLoading || searchLoading) {
     return (
@@ -30,15 +33,16 @@ const JobsMobiileView = ({
       <section className="py-[2%]">
         <h2 className="pb-[5%] font-medium">Jobs for you</h2>
         <JobCard
+          guestUser={guestUser}
           user={user!}
-          setJobId={setJobId}
+          userIsFetching={userIsFetching}
+          setJob_id={setJob_id}
           job={undefined}
           isFetching={isFetching}
         />
       </section>
     );
   }
-
   return (
     <ul>
       <h2 className="pt-[2%] pb-[5%] font-medium">Jobs for you</h2>
@@ -48,24 +52,34 @@ const JobsMobiileView = ({
             {isSearchingJob
               ? searchedJob?.map((job) => (
                   <JobCard
+                    guestUser={guestUser}
                     user={user!}
-                    setJobId={setJobId}
+                    userIsFetching={userIsFetching}
+                    setJob_id={setJob_id}
                     job={job}
-                    isFetching={searchFetching}
+                    isFetching={isFetching}
                   />
                 ))
               : jobs?.map((job) => (
                   <JobCard
+                    guestUser={guestUser}
                     user={user!}
-                    setJobId={setJobId}
+                    userIsFetching={userIsFetching}
+                    setJob_id={setJob_id}
                     job={job}
-                    isFetching={false}
+                    isFetching={isFetching}
                   />
                 ))}
           </li>
         </DialogTrigger>
         <DialogContent>
-          <JobBigCard jobId={jobId} user={user!}/>
+          <JobBigCard
+            setJob_id={() => {}}
+            job_id={job_id}
+            guestUser={guestUser}
+            user={user!}
+            userIsFetching={userIsFetching}
+          />
         </DialogContent>
       </Dialog>
     </ul>

@@ -1,22 +1,23 @@
 import { CircleCheck } from "lucide-react";
-import type { Job, User } from "../../dataTypes";
-import type { Dispatch, SetStateAction } from "react";
+import type { JobCardProps } from "../../dataTypes";
 
-type JobCardProps = {
-  job?: Job;
-  isFetching: boolean;
-  setJobId: Dispatch<SetStateAction<number>>;
-  user: User;
-};
-
-const JobCard = ({ job, isFetching, setJobId, user }: JobCardProps) => {
-  const isJobApplied = user?.jobs_applied?.some(
-    (applied) => applied.job_id === job?.job_id,
-  );
+const JobCard = ({
+  job,
+  isFetching,
+  setJob_id,
+  guestUser,
+  user,
+  userIsFetching,
+}: JobCardProps) => {
+  const isJobApplied =
+    guestUser?.jobs_applied?.some(
+      (applied) => applied.job_id === job?.job_id,
+    ) ||
+    user?.user?.jobs_applied?.some((applied) => applied.job_id === job?.job_id);
 
   return (
     <article
-      onClick={() => setJobId(job?.job_id as number)}
+      onClick={() => setJob_id(job?.job_id as number)}
       className={`flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline`}
     >
       <h2 className="flex w-full items-center justify-between py-[2%]">
@@ -31,8 +32,16 @@ const JobCard = ({ job, isFetching, setJobId, user }: JobCardProps) => {
         </span>
         {isJobApplied && (
           <span className="flex items-center gap-1">
-            <CircleCheck className="text-green-500" />
-            <span className="font-medium italic">Applied</span>
+            {userIsFetching ? (
+              <span className="animate animate-pulse bg-neutral-300 text-neutral-300">
+                Loading
+              </span>
+            ) : (
+              <>
+                <CircleCheck className="text-green-500" />
+                <span className="font-medium italic">Applied</span>
+              </>
+            )}
           </span>
         )}
       </h2>

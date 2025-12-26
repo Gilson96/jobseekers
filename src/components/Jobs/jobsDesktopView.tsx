@@ -12,8 +12,9 @@ const Jobs = ({
   searchFetching,
   searchLoading,
   user,
+  guestUser,
 }: JobSearch) => {
-  const { jobs, error, isFetching, isLoading } = useGetAllJobs();
+  const { jobs, isFetching, isLoading } = useGetAllJobs();
   const screenSize = useScreenSize();
   const mobileView = screenSize.width < 1000;
   const [jobId, setJobId] = useState(1);
@@ -35,16 +36,18 @@ const Jobs = ({
           <h2 className="py-[2%] text-lg font-medium">Jobs for you</h2>
           <div className="flex h-60 w-full justify-between gap-10">
             <JobCard
-              user={user!}
+              user={user?.user}
               setJobId={setJobId}
               job={undefined}
               isFetching={true}
+              guestUser={guestUser}
             />
             <JobCard
-              user={user!}
+              user={user?.user}
               setJobId={setJobId}
               job={undefined}
               isFetching={true}
+              guestUser
             />
           </div>
         </section>
@@ -59,22 +62,24 @@ const Jobs = ({
             {isSearchingJob
               ? searchedJob?.map((job) => (
                   <JobCard
-                    user={user!}
+                    user={user!.user}
                     setJobId={setJobId}
                     job={job}
                     isFetching={false}
+                    guestUser={guestUser}
                   />
                 ))
               : jobs?.map((job) => (
                   <JobCard
-                    user={user!}
+                    user={user!.user}
                     setJobId={setJobId}
                     job={job}
                     isFetching={false}
+                    guestUser={guestUser}
                   />
                 ))}
           </li>
-          <JobBigCard user={user!} jobId={jobId} />
+          <JobBigCard user={user!} guestUser={guestUser} jobId={jobId} />
         </div>
       </ul>
     );
