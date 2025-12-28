@@ -77,3 +77,20 @@ export const usePostApplication = (user_id: number, job_id: number) => {
 
   return { isPending, user: data, isError, isSuccess, mutate };
 };
+
+export const usePostSkillsUser = (skills_id: number, user_id: number) => {
+  const userLogin = useUserLoginStore(s => s.user)
+  const { isPending, isError, isSuccess, mutate } =
+    useMutation({
+      mutationFn: () => {
+        return axios
+          .post(
+            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user",
+            { skills_id: skills_id, user_id: user_id }, { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+          )
+          .then(() => { })
+      },
+    });
+
+  return { isPending, isError, isSuccess, mutate };
+};
