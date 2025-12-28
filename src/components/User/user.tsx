@@ -2,6 +2,8 @@ import { LoaderCircle } from "lucide-react";
 import { useGetUser } from "../../hooks/useGetQueries";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { ChevronRight, Mail, MapPin, Phone } from "lucide-react";
+import UpdateUser from "./updateUser";
+import UpdateSkills from "./updateSkills";
 
 const User = () => {
   const { isFetching, isLoading, userData } = useGetUser();
@@ -13,7 +15,7 @@ const User = () => {
       </div>
     );
   }
-
+  console.log(userData);
   return (
     <section className="flex h-full w-full flex-col">
       <section className="border-b pt-[2%] pb-[5%] hover:bg-neutral-400/4 lg:pb-[3%]">
@@ -37,7 +39,7 @@ const User = () => {
             <ChevronRight />
           </DialogTrigger>
           <DialogContent>
-            <p>Update</p>
+            <UpdateUser user={userData?.user!} />
           </DialogContent>
         </Dialog>
       </section>
@@ -49,15 +51,15 @@ const User = () => {
               <ul className="flex w-full flex-wrap gap-3 py-[2%] lg:py-0 lg:pb-[5%]">
                 {userData?.user.skills?.map((skill) => (
                   <li className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">
-                    {skill}
+                    {skill.skills_name}
                   </li>
                 ))}
               </ul>
             </div>
             <ChevronRight />
           </DialogTrigger>
-          <DialogContent>
-            <p>Update</p>
+          <DialogContent className="h-[70%] overflow-hidden lg:h-full">
+            <UpdateSkills user={userData?.user!} />
           </DialogContent>
         </Dialog>
       </section>
