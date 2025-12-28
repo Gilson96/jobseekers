@@ -38,7 +38,6 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     );
   };
 
-  console.log(savedJobs);
   const {
     isError: isErrorDeleting,
     isPending: isPendingDeleting,
