@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { Job, Saved_job, User } from "../dataTypes";
+import type { Job, Saved_job, Skills, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
 export const useGetAllJobs = () => {
@@ -84,5 +84,21 @@ export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {
   });
 
   return { isLoading, isFetching, error, searchedJob: data };
+};
+
+export const useGetAllSkills = () => {
+  const { isLoading, isFetching, data } = useQuery<Skills[]>({
+    queryKey: ["skills"],
+    queryFn: () =>
+      axios
+        .get(
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/skills`,
+        )
+        .then((res) => {
+          return res.data;
+        })
+  });
+
+  return { isLoading, isFetching, skills: data };
 };
 
