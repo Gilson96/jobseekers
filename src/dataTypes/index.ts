@@ -72,7 +72,7 @@ export type User = {
     cv?: string
     role?: string
     token?: string
-    skills?: string[]
+    skills?: Skills_user[]
     jobs_applied?: Job[]
 }
 
@@ -109,6 +109,7 @@ export type Skills_user = {
     skills_user_id?: number,
     skills_id?: number
     user_id?: number,
+    skills_name?: string
 }
 
 export type Skills_job = {
