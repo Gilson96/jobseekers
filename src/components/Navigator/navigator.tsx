@@ -29,24 +29,28 @@ const Navigator = () => {
           </Link>
         ) : (
           <>
-            <Button onClick={() => logout()}>Logout</Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <UserCircle2
-                  className="size-8 cursor-pointer"
-                  color="oklch(70.4% 0.14 182.503)"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="relative right-[20%] w-20 min-w-0 bg-white md:right-[30%]">
-                <DropdownMenuItem>
-                  <Link to={"/user"}>Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link to={"/myJobs"}>My jobs</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button onClick={() => logout()}>
+              <Link to={"/"}>Logout</Link>
+            </Button>
+            {user.role !== "admin" && (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <UserCircle2
+                    className="size-8 cursor-pointer"
+                    color="oklch(70.4% 0.14 182.503)"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="relative right-[20%] w-20 min-w-0 bg-white md:right-[30%]">
+                  <DropdownMenuItem>
+                    <Link to={"/user"}>Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link to={"/myJobs"}>My jobs</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </>
         )}
       </div>
