@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { Job, Saved_job, Skills, User } from "../dataTypes";
+import type { Application_job, Company, Job, Saved_job, Skills, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
 export const useGetAllJobs = () => {
@@ -36,12 +36,12 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
-  const { isLoading, isFetching, data } = useQuery<{ user: User }>({
+  const { isLoading, isFetching, data } = useQuery<{ user: User } | { company: Company }>({
     queryKey: ["user", userLogin?.id],
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/${userLogin?.id}`,
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/${userLogin.role === 'user' ? 'user' : 'company'}/${userLogin?.id}`,
           { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
@@ -101,4 +101,23 @@ export const useGetAllSkills = () => {
 
   return { isLoading, isFetching, skills: data };
 };
+
+export const useGetApplicationJob = (job_id: number) => {
+  const userLogin = useUserLoginStore(s => s.user)
+  const { isLoading, isFetching, data } = useQuery<Application_job[]>({
+    queryKey: ["application_jobs"],
+    queryFn: () =>
+      axios
+        .get(
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job/${job_id}`,
+          { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+        )
+        .then((res) => {
+          return res.data;
+        })
+  });
+
+  return { isLoading, isFetching, jobApplications: data };
+};
+
 
