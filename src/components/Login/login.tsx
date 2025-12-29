@@ -16,7 +16,7 @@ const Login = () => {
   const [userEmail, setUserEmail] = useState("");
   const { isError, isPending, isSuccess, mutate } = usePostLogin({
     email: userEmail,
-    password: "user123",
+    password: "company123",
   });
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +41,9 @@ const Login = () => {
                 log in.
               </p>
             </AccordionTrigger>
-            <AccordionContent>user@user.com</AccordionContent>
+            <AccordionContent>
+              user@user.com, talentbridge@company.com
+            </AccordionContent>
           </AccordionItem>
         </Accordion>
         <Label>Email</Label>
