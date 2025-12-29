@@ -95,6 +95,7 @@ const FormUserDetails = ({
           onChange={(e) => setInputAddress(e.target.value)}
         />
       </div>
+      {}
       <Button>
         {isPending ? (
           <Loader2Icon className="animate animate-spin text-teal-500" />
