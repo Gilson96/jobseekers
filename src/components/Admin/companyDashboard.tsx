@@ -6,6 +6,8 @@ import CompanyAllJobs from "./companyAllJobs";
 import { useGetUser } from "../../hooks/useGetQueries";
 import type { Company } from "../../dataTypes";
 import { Loader2Icon } from "lucide-react";
+import CompanyPostJob from "./companyPostJob";
+import CompanyProfile from "./companyProfile";
 
 const CompanyDashboard = () => {
   const screenSize = useScreenSize();
@@ -20,16 +22,16 @@ const CompanyDashboard = () => {
       </section>
     );
   }
-  
+
   const { company } = userData as { company: Company };
+
   if (mobileView) {
     return (
-      <section className="">
+      <section className="h-full w-full">
         <TopMenu setActiveTab={setActiveTab} />
         {activeTab === "allJobs" && <CompanyAllJobs company={company} />}
-        {/* {activeTab === "postJob" && <CompanyPostJob />}
-        {activeTab === "updateJob" && <CompanyUpdateJob />}
-        {activeTab === "removeJob" && <CompanyRemoveJobs />} */}
+        {activeTab === "postJob" && <CompanyPostJob company={company} />}
+        {activeTab === "profile" && <CompanyProfile company={company} />}
       </section>
     );
   }
