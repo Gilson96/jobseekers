@@ -36,7 +36,7 @@ export type Job = {
         requirements: string,
         shift_pattern: string
     },
-    skills?: string[]
+    skills?: [{ skills_id: number, skills_job_id: number, skills_name: string }]
 }
 
 export type JobCardProps = {
