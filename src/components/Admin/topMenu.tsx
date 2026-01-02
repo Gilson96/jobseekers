@@ -13,21 +13,21 @@ const TopMenu = ({ setActiveTab }: TopMenuProps) => {
         <li className="flex cursor-pointer hover:bg-neutral-100 flex-col px-[3%]">
           <BriefcaseBusiness
             className="size-8"
-            onClick={() => setActiveTab("alljobs")}
+            onClick={() => setActiveTab("allJobs")}
           />
           <p className="font-medium">Jobs</p>
         </li>
         <li className="flex cursor-pointer items-center hover:bg-neutral-100 flex-col px-[3%]">
           <UserRoundPlus
             className="size-8"
-            onClick={() => setActiveTab("postjobs")}
+            onClick={() => setActiveTab("postJob")}
           />
           <p className="font-medium">Post a job</p>
         </li>
         <li className="flex cursor-pointer items-center hover:bg-neutral-100 flex-col px-[3%]">
           <UserRoundCog
             className="size-8"
-            onClick={() => setActiveTab("postjobs")}
+            onClick={() => setActiveTab("profile")}
           />
           <p className="font-medium">Profile</p>
         </li>
