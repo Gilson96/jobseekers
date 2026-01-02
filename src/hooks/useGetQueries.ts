@@ -105,7 +105,7 @@ export const useGetAllSkills = () => {
 export const useGetApplicationJob = (job_id: number) => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isLoading, isFetching, data } = useQuery<Application_job[]>({
-    queryKey: ["application_jobs"],
+    queryKey: ["application_jobs", job_id],
     queryFn: () =>
       axios
         .get(

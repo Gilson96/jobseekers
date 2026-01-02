@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useUserLoginStore } from "./store";
 import axios from "axios";
-import type { Job, User } from "../dataTypes";
+import type { Company, Job, User } from "../dataTypes";
 
 export const useUpdateUser = () => {
     const userLogin = useUserLoginStore(s => s.user)
@@ -12,6 +12,24 @@ export const useUpdateUser = () => {
                     .patch(
                         `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/${userLogin.id}`,
                         user,
+                        { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+                    )
+                    .then(() => { })
+            },
+        });
+
+    return { isPending, isError, isSuccess, mutate };
+};
+
+export const useUpdateCompany = () => {
+    const userLogin = useUserLoginStore(s => s.user)
+    const { isPending, isError, isSuccess, mutate } =
+        useMutation({
+            mutationFn: (company: Company) => {
+                return axios
+                    .patch(
+                        `http://jobseekers-api-c462d8f75521.herokuapp.com/api/company/${userLogin.id}`,
+                        company,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
                     .then(() => { })
