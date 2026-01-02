@@ -12,7 +12,6 @@ import CompanyDashboard from "./components/Admin/companyDashboard";
 
 const App = () => {
   const user = useUserLoginStore((s) => s.user);
-  console.log(user);
   return (
     <main className="w-full px-[3%] py-[1%]">
       <Navigator />
