@@ -1,30 +1,44 @@
-import type { Job } from "../../dataTypes";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Loader2Icon } from "lucide-react";
+
 const CompanyJobDetails = ({
-  job,
+  job_id,
   title,
   location,
-  isJobFetching,
-  isJobLoading,
+  setIsClicked,
 }: {
-  job: Job;
+  job_id: number;
   title: string;
   location: string;
-  isJobFetching: boolean;
-  isJobLoading: boolean;
+  isClicked: boolean;
+  setIsClicked: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const [open, setOpen] = useState(false);
+  const {
+    isFetching: isJobFetching,
+    isLoading: isJobLoading,
+    job,
+  } = useGetOneJob(job_id);
+
+  useEffect(() => {
+    setIsClicked(false);
+  }, [!open]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <p className="flex w-full cursor-pointer flex-col items-start justify-start hover:underline">
-          <span className="text-left text-lg font-medium">{title}</span>
-          <span className="text-left text-sm text-neutral-600">{location}</span>
-        </p>{" "}
+          <span className="min-w-36 text-left">{title}</span>
+          <span className="w-[80%] text-left text-sm font-light text-neutral-600">
+            {location}
+          </span>
+        </p>
       </DialogTrigger>
-      <DialogContent className="flex h-[70%] w-full flex-col items-start justify-around overflow-y-auto p-[2%]">
+      <DialogContent className="flex h-[70%] w-full flex-col items-start justify-around overflow-y-auto p-[3%]">
         {isJobFetching || isJobLoading ? (
-          <section className="h-full w-full items-center justify-center">
+          <section className="mt-20 h-full w-full place-items-center items-center justify-center">
             <Loader2Icon className="animate animate-spin text-teal-500" />
           </section>
         ) : (
@@ -59,7 +73,7 @@ const CompanyJobDetails = ({
               <ul className="flex w-full flex-wrap gap-3 py-[2%]">
                 {job?.skills?.map((skill) => (
                   <li className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">
-                    {skill}
+                    {skill.skills_name}
                   </li>
                 ))}
               </ul>

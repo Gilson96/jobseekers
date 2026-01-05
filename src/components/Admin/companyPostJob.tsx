@@ -1,14 +1,33 @@
-import { useState, type FormEvent } from "react";
+import {
+  useEffect,
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+} from "react";
 import FormJobDetails from "../ui/formJobDetails";
 import { usePostJob } from "../../hooks/usePostQueries";
 import type { Company, Job } from "../../dataTypes";
 import { Button } from "../ui/button";
-import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
+import { toast } from "sonner";
 
-const CompanyPostJob = ({ company }: { company: Company }) => {
-  const { isError, isPending, isSuccess, mutate } = usePostJob();
-  const { isFetching, isLoading, job } = useGetOneJob(1);
+const CompanyPostJob = ({
+  company,
+  setActiveTab,
+}: {
+  company: Company;
+  setActiveTab: Dispatch<SetStateAction<string>>;
+}) => {
+  const { isError, isPending, isSuccess, mutate } = usePostJob(
+    company?.company_id as number,
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
+      setActiveTab("allJobs");
+    }
+  }, [isSuccess]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,24 +49,31 @@ const CompanyPostJob = ({ company }: { company: Company }) => {
         shift_pattern: dataFromForm.shift_pattern,
       },
     };
-
     mutate(newJob);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex h-full w-full flex-col justify-around pt-2"
-    >
-      <FormJobDetails action="post" job={job} />
-      <Button>
-        {isPending ? (
-          <Loader2Icon className="animate animate-spin text-teal-500" />
-        ) : (
-          "Post"
+    <section>
+      <h2 className="border-b pt-[2%] pb-[5%] text-lg">Add a job</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="flex h-full w-full flex-col justify-around py-[5%]"
+      >
+        <FormJobDetails action="post" />
+        {isError && (
+          <p className="py-[2%] text-xs text-red-500">
+            * Something went wrong. Try again later
+          </p>
         )}
-      </Button>
-    </form>
+        <Button className="mt-[4%]">
+          {isPending ? (
+            <Loader2Icon className="animate animate-spin text-teal-500" />
+          ) : (
+            "Add"
+          )}
+        </Button>
+      </form>
+    </section>
   );
 };
 

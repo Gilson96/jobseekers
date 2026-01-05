@@ -1,6 +1,6 @@
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import type { Job } from "../../dataTypes";
-import { useLocation } from "react-router";
+
 
 export const ApplicationJobDetailsMobileView = ({ job }: { job: Job }) => {
   return (
@@ -42,7 +42,7 @@ export const ApplicationJobDetailsMobileView = ({ job }: { job: Job }) => {
             <ul className="flex w-full flex-wrap gap-3 py-[5%]">
               {job?.skills?.map((skill) => (
                 <li className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">
-                  {skill}
+                  {skill.skills_name}
                 </li>
               ))}
             </ul>
@@ -85,7 +85,7 @@ export const ApplicationJobDetailsDesktopView = ({ job }: { job: Job }) => {
           <ul className="flex w-full flex-wrap gap-3 py-[2%]">
             {job?.skills?.map((skill) => (
               <li className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">
-                {skill}
+                {skill.skills_name}
               </li>
             ))}
           </ul>

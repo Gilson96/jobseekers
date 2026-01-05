@@ -19,6 +19,7 @@ const JobsMobiileView = ({
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const [job_id, setJob_id] = useState(1);
 
+  console.log(jobs)
   if (isLoading || searchLoading) {
     return (
       <section className="py-[2%]">

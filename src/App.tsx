@@ -19,19 +19,16 @@ const App = () => {
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
 
-        {user.role === "user" ||
-          (user.name === "guest" && (
-            <>
-              <Route path="/home" element={<Home />} />
-              <Route path="/application" element={<Application />} />
-              <Route path="/user" element={<User />} />
-              <Route path="/myJobs" element={<MyJobs />} />
-            </>
-          ))}
-
-        {user.role === "admin" && (
+        {user.role === "admin" ? (
           <>
             <Route path="/home" element={<CompanyDashboard />} />
+          </>
+        ) : (
+          <>
+            <Route path="/application" element={<Application />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/myJobs" element={<MyJobs />} />
           </>
         )}
       </Routes>

@@ -1,6 +1,6 @@
 import { useGetOneJob } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
-import { type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { Job } from "../../dataTypes";
 import { useUpdateJob } from "../../hooks/usePatchQueries";
 import FormJobDetails from "../ui/formJobDetails";
@@ -11,20 +11,28 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 const CompanyUpdateJob = ({ job_id }: { job_id: number }) => {
+  const [open, setOpen] = useState(false);
   const {
     isFetching: isJobFetching,
     isLoading: isJobLoading,
     job,
   } = useGetOneJob(job_id);
-  const { isError, isPending, isSuccess, mutate } = useUpdateJob(job_id);
+  const {
+    isError: isErrorUpdating,
+    isPending: isPendingUpdating,
+    isSuccess: isSuccessUpdating,
+    mutate: updateJob,
+  } = useUpdateJob(job_id);
 
-  if (isJobFetching || isJobLoading) {
-    return (
-      <Loader2Icon className="animate flex w-full animate-spin items-center justify-center text-teal-500" />
-    );
-  }
+  useEffect(() => {
+    if (isSuccessUpdating) {
+      toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
+      return setOpen(false);
+    }
+  }, [isSuccessUpdating]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,25 +83,38 @@ const CompanyUpdateJob = ({ job_id }: { job_id: number }) => {
       },
     } as Job;
 
-    mutate(formattedData);
+    updateJob(formattedData);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant={"outline"} className="w-full">
+        <Button variant={"outline"} className="w-full px-8 font-normal">
           Update details
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle className="border-b w-full pb-[3%]">Update job details</DialogTitle>
-        <form onSubmit={handleSubmit} className="flex w-full flex-col ">
-          <p className="flex w-full pb-[3%] text-left italic">
-            *If no input it will keep the old value
-          </p>
-          <FormJobDetails action="update" job={job!} />
-          <Button className="mt-[3%]">Update</Button>
-        </form>
+        <DialogTitle className="w-full border-b pb-[3%]">
+          Update job details
+        </DialogTitle>
+        {isJobLoading || isJobFetching ? (
+          <Loader2Icon className="animate animate-spin place-self-center text-teal-500" />
+        ) : (
+          <form onSubmit={handleSubmit} className="flex w-full flex-col">
+            <p className="flex w-full pb-[3%] text-left italic">
+              *If no input it will keep the old value
+            </p>
+            <FormJobDetails action="update" job={job!} />
+            {isErrorUpdating && (
+              <p className="my-[2%] text-xs text-red-500">
+                Something went wrong. Try again later
+              </p>
+            )}
+            <Button className="mt-[3%]">
+              {isPendingUpdating ? <Loader2Icon /> : "Update"}
+            </Button>
+          </form>
+        )}
       </DialogContent>
     </Dialog>
   );

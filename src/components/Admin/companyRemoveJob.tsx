@@ -8,22 +8,41 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Trash2, Loader2Icon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useDeleteCompanyJob } from "../../hooks/useDeleteQueries";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-const CompanyRemoveJob = ({ job_id }: { job_id: number }) => {
+const CompanyRemoveJob = ({
+  job_id,
+  company_id,
+}: {
+  job_id: number;
+  company_id: number;
+}) => {
+  const [open, setOpen] = useState(false);
+
   const {
     isError,
     isPending,
     isSuccess,
     mutate: removeJob,
-  } = useDeleteCompanyJob(job_id);
+  } = useDeleteCompanyJob(job_id, company_id);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
+      return setOpen(false);
+    }
+  }, [isSuccess]);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button className="w-full" variant={"destructive"}>Remove job</Button>
+        <Button className="w-full font-normal" variant={"destructive"}>
+          Remove job
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

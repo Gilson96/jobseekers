@@ -11,6 +11,7 @@ import { SearchIcon } from "lucide-react";
 import JobsMobiileView from "../Jobs/jobsMobileView";
 import JobsDesktopView from "../Jobs/jobsDesktopView";
 import { useUserLoginStore } from "../../hooks/store";
+import type { User } from "../../dataTypes";
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -34,7 +35,6 @@ const Home = () => {
     e.preventDefault();
     setIsSearchingJob(true);
   };
-
 
   if (mobileView) {
     return (
@@ -66,7 +66,7 @@ const Home = () => {
           userIsLoading={userIsLoading}
           searchedJob={searchedJob}
           guestUser={guestUser}
-          user={user}
+          user={user as { user: User }}
         />
       </>
     );
@@ -97,7 +97,7 @@ const Home = () => {
           isSearchingJob={isSearchingJob}
           searchedJob={searchedJob}
           guestUser={guestUser}
-          user={user}
+          user={user as { user: User }}
           userIsFetching={userIsFetching}
           userIsLoading={userIsLoading}
         />

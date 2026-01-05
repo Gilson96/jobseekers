@@ -1,5 +1,4 @@
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { BriefcaseBusiness, Plus, PlusIcon, UserRoundCog, UserRoundPlus } from "lucide-react";
+import { BriefcaseBusiness, UserRoundCog, UserRoundPlus } from "lucide-react";
 import type { SetStateAction } from "react";
 
 type TopMenuProps = {
@@ -8,30 +7,29 @@ type TopMenuProps = {
 
 const TopMenu = ({ setActiveTab }: TopMenuProps) => {
   return (
-    <nav className="h-[7rem] w-full bg-white py-[3%]">
-      <ul className="flex h-full w-full justify-around items-center border-b px-[2%]">
-        <li className="flex cursor-pointer hover:bg-neutral-100 flex-col px-[3%]">
-          <BriefcaseBusiness
-            className="size-8"
-            onClick={() => setActiveTab("allJobs")}
-          />
-          <p className="font-medium">Jobs</p>
+    <nav className="h-28 w-full bg-white py-[3%]">
+      <ul className="flex h-full w-full items-center justify-around border-b px-[2%]">
+        <li
+          onClick={() => setActiveTab("allJobs")}
+          className="flex cursor-pointer flex-col items-center px-[5%] py-[2%] duration-200 ease-in-out hover:bg-neutral-100 hover:[&>p]:underline"
+        >
+          <BriefcaseBusiness className="size-8" />
+          <p className="">Jobs</p>
         </li>
-        <li className="flex cursor-pointer items-center hover:bg-neutral-100 flex-col px-[3%]">
-          <UserRoundPlus
-            className="size-8"
-            onClick={() => setActiveTab("postJob")}
-          />
-          <p className="font-medium">Post a job</p>
+        <li
+          onClick={() => setActiveTab("postJob")}
+          className="flex cursor-pointer flex-col items-center px-[5%] py-[2%] duration-200 ease-in-out hover:bg-neutral-100 hover:[&>p]:underline"
+        >
+          <UserRoundPlus className="size-8" />
+          <p className="">Post a job</p>
         </li>
-        <li className="flex cursor-pointer items-center hover:bg-neutral-100 flex-col px-[3%]">
-          <UserRoundCog
-            className="size-8"
-            onClick={() => setActiveTab("profile")}
-          />
-          <p className="font-medium">Profile</p>
+        <li
+          onClick={() => setActiveTab("profile")}
+          className="flex cursor-pointer flex-col items-center px-[5%] py-[2%] duration-200 ease-in-out hover:bg-neutral-100 hover:[&>p]:underline"
+        >
+          <UserRoundCog className="size-8" />
+          <p className="">Profile</p>
         </li>
-        
       </ul>
     </nav>
   );

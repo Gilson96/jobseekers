@@ -8,8 +8,8 @@ import { useState } from "react";
 import ApplicationStep1 from "./applicationStep1";
 import ApplicationStep2 from "./applicationStep2";
 import ApplicationStep3 from "./applicationStep3";
-import type { Job } from "../../dataTypes";
-import { useLocation } from "react-router";
+import type { Job, User } from "../../dataTypes";
+import { useAsyncError, useLocation } from "react-router";
 import ApplicationStep4 from "./applicationStep4";
 import { useGetUser } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
@@ -18,7 +18,7 @@ const Application = () => {
   const { state }: { state: Job } = useLocation();
   const screenSize = useScreenSize();
   const [step, setStep] = useState(1);
-  const { userData: user, isFetching, isLoading } = useGetUser();
+  const { userData, isFetching, isLoading } = useGetUser();
   const [userDetails, setUserDetails] = useState<{
     email?: string;
     number?: string;
@@ -31,6 +31,7 @@ const Application = () => {
   });
 
   const job: Job = state;
+  const user = userData as { user: User };
   const mobileView = screenSize.width < 1000;
 
   if (isFetching || isLoading) {
@@ -45,11 +46,6 @@ const Application = () => {
         {step <= 3 && (
           <>
             <ApplicationJobDetailsMobileView job={job} />
-            {user?.user.user_id !== undefined && (
-              <h2 className="pt-[3%] font-medium">
-                Do you want to change something for this application?
-              </h2>
-            )}
             <div className="flex items-center justify-between gap-8 py-[5%]">
               <Progress value={step * 30} max={100} className="text-teal-600" />
               <span className="text-xs">{step * 30}%</span>
@@ -90,6 +86,8 @@ const Application = () => {
           setStep={() => {}}
           step={step}
           user={user}
+          isFetching={isFetching}
+          isLoading={isLoading}
         />
       </section>
     );
@@ -106,7 +104,9 @@ const Application = () => {
         )}
         {step === 1 && (
           <span className="w-[80%] text-left text-lg font-medium">
-            Fill this form to start your application
+            {user === undefined
+              ? "Fill this form to start your application"
+              : "You can continue or edit your application"}
           </span>
         )}
         {step === 2 && (
@@ -149,6 +149,8 @@ const Application = () => {
           setStep={() => {}}
           step={step}
           user={user}
+          isFetching={isFetching}
+          isLoading={isLoading}
         />
       </section>
       {step < 4 && (

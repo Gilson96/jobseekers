@@ -23,15 +23,16 @@ const CompanyJobAnalysis = ({ job_id }: { job_id: number }) => {
     isLoading: isApplicationLoading,
     jobApplications,
   } = useGetApplicationJob(job_id);
+
   return (
     <Dialog>
       <DialogTrigger>
-        <Button className="w-full" variant={"outline"}>
+        <Button className="w-full font-normal" variant={"outline"}>
           See Analysis
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>Analysis</DialogTitle>
+        <DialogTitle className="w-full border-b pb-[3%]">Analysis</DialogTitle>
         <Table className="w-full">
           <TableCaption>
             A list of users that applied for this job.
@@ -55,9 +56,19 @@ const CompanyJobAnalysis = ({ job_id }: { job_id: number }) => {
                   <TableCell className="border-r">
                     #{applier.application_id}
                   </TableCell>
-                  <TableCell className="border-r">{applier.name}</TableCell>
-                  <TableCell className="border-r">{applier.email}</TableCell>
-                  <TableCell>cv</TableCell>
+                  <TableCell className="border-r">
+                    {applier.name?.length === 0
+                      ? applier.guest_email
+                      : applier.name}
+                  </TableCell>
+                  <TableCell className="border-r">
+                    {applier.email?.length === 0
+                      ? applier.guest_name
+                      : applier.email}
+                  </TableCell>
+                  <TableCell>
+                    {applier.cv?.length === 0 ? applier.guest_cv : applier.cv}
+                  </TableCell>
                 </TableRow>
               ))
             )}

@@ -2,7 +2,7 @@ import { useGetAllJobs } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
 import useScreenSize from "../../hooks/useScreenSize";
 import JobCard from "./jobCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import JobBigCard from "./jobBigCard";
 import type { JobSearch } from "../../dataTypes";
 
@@ -18,7 +18,16 @@ const Jobs = ({
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const screenSize = useScreenSize();
   const mobileView = screenSize.width < 1000;
-  const [job_id, setJob_id] = useState(1);
+  const [job_id, setJob_id] = useState<number>(1);
+
+  useEffect(() => {
+    if (isSearchingJob) {
+      setJob_id(searchedJob?.[0].job_id as number);
+    } else {
+      setJob_id(jobs?.[0]?.job_id as number);
+    }
+  }, [searchedJob]);
+
 
   if (mobileView) {
   } else {

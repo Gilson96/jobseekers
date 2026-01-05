@@ -15,30 +15,33 @@ const ApplicationStep3 = ({
 }: ApplicationProps) => {
   const setUserDetails = useUserLoginStore((s) => s.setUserDetails);
   const userGuest = useUserLoginStore((s) => s.user);
+  const userGuestId = 1;
+  const userGuestCv = userDetails?.cv?.name!;
   const { isError, isPending, isSuccess, mutate } = usePostApplication(
-    user?.user.user_id!,
-    Number(job?.job_id)!,
+    userDetails?.name!,
+    userDetails?.email!,
+    userGuestCv,
   );
 
   const handleApplication = () => {
-    if (user?.user.user_id === undefined) {
-      return (
-        setUserDetails({
-          ...user,
-          email: userDetails?.email,
-          number: userDetails?.number,
-          address: userDetails?.address,
-          jobs_applied: [...userGuest.jobs_applied!, job] as Job[],
-        }),
-        setStep((prev) => prev + 1)
-      );
+    if (user?.user?.user_id === undefined) {
+      mutate({ user_id: userGuestId, job_id: job?.job_id as number });
+      setUserDetails({
+        ...user,
+        name: "guest",
+        email: userDetails?.email,
+        number: userDetails?.number,
+        address: userDetails?.address,
+        jobs_applied: [...userGuest.jobs_applied!, job] as Job[],
+      });
+      setStep((prev) => prev + 1);
     } else {
-      mutate();
+      mutate({ user_id: user.user.user_id, job_id: job?.job_id as number });
     }
   };
 
   if (isSuccess) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to={"/myJobs"} />;
   }
   if (isError) {
     return toast.error("Somenthing went wrong. Try again later");
