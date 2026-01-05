@@ -9,12 +9,13 @@ import { useDeleteSavedJobs } from "../../hooks/useDeleteQueries";
 
 const AddToSavedJobs = ({ job }: { job: Job }) => {
   const user = useUserLoginStore((s) => s.user);
-  const saved_job = { user_id: user.id!, job_id: job.job_id as number };
+  const saved_job = { user_id: user.id!, job_id: job?.job_id as number };
   const {
     savedJobs,
     isFetching: savedJobsFetching,
     isLoading: savedJobsLoading,
-  } = useGetSavedJob();
+    refetch,
+  } = useGetSavedJob(job?.job_id as number);
   const {
     isError: isErrorPosting,
     isPending: isPendingPosting,
@@ -29,12 +30,12 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     .flat(Infinity) as Job[];
 
   const existsInSavedJobs = () => {
-    return flatSavedJobs?.some((saved) => saved.job_id === job.job_id);
+    return flatSavedJobs?.some((saved) => saved.job_id === job?.job_id);
   };
 
   const findSavedJob = () => {
     return savedJobs?.find(
-      (saved) => saved?.saved_jobs?.[0].job_id === job.job_id,
+      (saved) => saved?.saved_jobs?.[0].job_id === job?.job_id,
     );
   };
 
@@ -45,39 +46,7 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     mutate: deleteSavedJob,
   } = useDeleteSavedJobs(findSavedJob()?.saved_job_id!);
 
-  if (isSuccessPosting) {
-    return (
-      toast.success("This job was successfully saved", {
-        style: { backgroundColor: "oklch(60% 0.118 184.704)", color: "white" },
-      }),
-      (
-        <button className="flex w-10 items-center justify-center rounded border bg-teal-500 p-1.25 text-white">
-          <BookMarkedIcon />
-        </button>
-      )
-    );
-  }
-
-  if (isSuccessDeleting) {
-    return (
-      toast.success("This job was successfully removed", {
-        style: { backgroundColor: "oklch(60% 0.118 184.704)", color: "white" },
-      }),
-      (
-        <button className="flex w-10 items-center justify-center rounded border p-1.25">
-          <BookMarkedIcon />
-        </button>
-      )
-    );
-  }
-
-  if (isErrorPosting || isErrorDeleting) {
-    return toast.error("Somenthins is wrong, try again later", {
-      style: { backgroundColor: "oklch(70.4% 0.191 22.216)", color: "white" },
-    });
-  }
-
-  if (user.id === undefined) {
+  if (user.name === "guest") {
     return (
       <Tooltip>
         <TooltipTrigger asChild>
@@ -98,6 +67,7 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     isPendingPosting ||
     isPendingDeleting
   ) {
+    refetch();
     return (
       <button className="flex w-10 items-center justify-center rounded border p-1.25">
         <Loader2Icon className="animate animate-spin text-teal-500" />

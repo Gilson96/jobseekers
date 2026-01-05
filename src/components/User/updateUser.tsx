@@ -1,12 +1,26 @@
-import type { FormEvent } from "react";
-import type { User } from "../../dataTypes";
+import type { Dispatch, FormEvent, SetStateAction } from "react";
+import type { Company, User } from "../../dataTypes";
 import { useUpdateUser } from "../../hooks/usePatchQueries";
-import { Navigate } from "react-router";
 import { toast } from "sonner";
 import FormUserDetails from "../ui/formUserDetails";
-import { DialogClose } from "../ui/dialog";
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+} from "@tanstack/react-query";
 
-const UpdateUser = ({ user }: { user: User }) => {
+const UpdateUser = ({
+  user,
+  setOpen,
+  refetch,
+}: {
+  user: User;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  refetch: (
+    options?: RefetchOptions | undefined,
+  ) => Promise<
+    QueryObserverResult<{ user: User } | { company: Company }, Error>
+  >;
+}) => {
   const { isError, isPending, isSuccess, mutate } = useUpdateUser();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -29,12 +43,8 @@ const UpdateUser = ({ user }: { user: User }) => {
   };
 
   if (isSuccess) {
-    return (
-      <>
-        <DialogClose />
-        <Navigate to={"/user"} />
-      </>
-    );
+    setOpen(false);
+    refetch();
   }
 
   if (isError) {
