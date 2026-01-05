@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUserLoginStore } from "./store";
 import axios from "axios";
 import type { Company, Job, User } from "../dataTypes";
@@ -21,8 +21,10 @@ export const useUpdateUser = () => {
     return { isPending, isError, isSuccess, mutate };
 };
 
-export const useUpdateCompany = () => {
+export const useUpdateCompany = (company_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: (company: Company) => {
@@ -34,13 +36,18 @@ export const useUpdateCompany = () => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["user", company_id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };
 };
 
 export const useUpdateJob = (job_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: (job: Job) => {
@@ -50,8 +57,11 @@ export const useUpdateJob = (job_id: number) => {
                         job,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
-                    .then(() => { }).catch(err => console.log(err))
+                    .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["job", job_id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };

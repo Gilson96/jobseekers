@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUserLoginStore } from "./store";
 import axios from "axios";
+import type { Company } from "../dataTypes";
 
 export const useDeleteSavedJobs = (saved_job_id: number) => {
     const userLogin = useUserLoginStore(s => s.user)
@@ -19,7 +20,9 @@ export const useDeleteSavedJobs = (saved_job_id: number) => {
 };
 
 export const useDeleteUserSkills = (skills_user_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: () => {
@@ -30,13 +33,18 @@ export const useDeleteUserSkills = (skills_user_id: number) => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["user", userLogin?.id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };
 };
 
-export const useDeleteJobSkills = (skills_job_id: number) => {
+export const useDeleteJobSkills = (skills_job_id: number, job_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: () => {
@@ -47,13 +55,18 @@ export const useDeleteJobSkills = (skills_job_id: number) => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["job", job_id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };
 };
 
-export const useDeleteCompanyJob = (job_id: number) => {
+export const useDeleteCompanyJob = (job_id: number, company_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: () => {
@@ -64,6 +77,9 @@ export const useDeleteCompanyJob = (job_id: number) => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["user", company_id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };

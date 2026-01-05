@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { skipToken, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Application_job, Company, Job, Saved_job, Skills, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
@@ -28,7 +28,9 @@ export const useGetOneJob = (job_id: number) => {
         )
         .then((res) => {
           return res.data.job;
-        }),
+        })
+
+
   });
 
   return { isLoading, isFetching, error, job: data };
@@ -36,7 +38,7 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
-  const { isLoading, isFetching, data } = useQuery<{ user: User } | { company: Company }>({
+  const { isLoading, isFetching, data, refetch } = useQuery<{ user: User } | { company: Company }>({
     queryKey: ["user", userLogin?.id],
     queryFn: () =>
       axios
@@ -49,17 +51,17 @@ export const useGetUser = () => {
         })
   });
 
-  return { isLoading, isFetching, userData: data };
+  return { isLoading, isFetching, userData: data, refetch };
 };
 
-export const useGetSavedJob = () => {
+export const useGetSavedJob = (job_id: number) => {
   const userLogin = useUserLoginStore(s => s.user)
-  const { isLoading, isFetching, data } = useQuery<Saved_job[]>({
-    queryKey: ["saved_jobs"],
+  const { isLoading, isFetching, data, refetch } = useQuery<Saved_job[]>({
+    queryKey: ["saved_jobs", job_id],
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/1`,
+          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${userLogin.id}`,
           { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
@@ -67,7 +69,7 @@ export const useGetSavedJob = () => {
         })
   });
 
-  return { isLoading, isFetching, savedJobs: data };
+  return { isLoading, isFetching, savedJobs: data, refetch };
 };
 
 export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {

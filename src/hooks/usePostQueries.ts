@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import axios, { type AxiosResponse } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
 import type { Application, Job, Saved_job, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
@@ -41,48 +41,54 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
   return { isPending, user: data, isError, isSuccess, mutate };
 };
 
-export const usePostApplication = (user_id: number, job_id: number) => {
+export const usePostApplication = (guest_name: string, guest_email: string, guest_cv: string) => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, data, isError, isSuccess, mutate } =
-    useMutation<AxiosResponse[]>({
-      mutationFn: () => {
+    useMutation<Application, AxiosError, { user_id: number, job_id: number }>({
+      mutationFn: ({ user_id, job_id }) => {
         return axios
           .post(
             "http://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
             { user_id: user_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
-          .then((res) => {
-            return res.data;
-          }).then((res: { application: Application }) => {
-            return Promise.all([axios
-              .post(
-                "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
-                { application_id: res.application.application_id, user_id: res.application.user_id },
-                { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
-              ),
-            axios
-              .post(
-                "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
-                { application_id: res.application.application_id, job_id: res.application.job_id },
-                { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
-              )],
-            ).then((res) => {
-              return res
-            })
-          })
+          .then((res) => { return res.data }).then((data) => {
+            const { application } = data
 
+            if (userLogin.name === 'guest') {
+              return axios
+                .post(
+                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  { application_id: application.application_id, job_id: application.job_id, guest_name, guest_email, guest_cv },
+                  { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+                ).then((res) => { return res.data })
+            } else {
+              return Promise.all([axios
+                .post(
+                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
+                  { application_id: application.application_id, user_id: application.user_id },
+                  { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+                ),
+              axios
+                .post(
+                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  { application_id: application.application_id, job_id: application.job_id },
+                  { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+                )]
+              ).then(() => { })
+            }
+          })
       },
     });
 
   return { isPending, user: data, isError, isSuccess, mutate };
 };
 
-export const usePostSkillsUser = (skills_id: number, user_id: number) => {
+export const usePostSkillsUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, isError, isSuccess, mutate } =
     useMutation({
-      mutationFn: () => {
+      mutationFn: ({ skills_id, user_id }: { skills_id: number, user_id: number }) => {
         return axios
           .post(
             "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user",
@@ -95,8 +101,10 @@ export const usePostSkillsUser = (skills_id: number, user_id: number) => {
   return { isPending, isError, isSuccess, mutate };
 };
 
-export const usePostSkillsJob = () => {
+export const usePostSkillsJob = (job_id: number) => {
+  const queryClient = useQueryClient()
   const userLogin = useUserLoginStore(s => s.user)
+
   const { isPending, isError, isSuccess, mutate } =
     useMutation({
       mutationFn: ({ skills_id, job_id }: { skills_id: number, job_id: number }) => {
@@ -110,13 +118,19 @@ export const usePostSkillsJob = () => {
             return res.data
           })
       },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["job", job_id] })
+      }
+
     });
 
   return { isPending, isError, isSuccess, mutate };
 };
 
-export const usePostJob = () => {
+export const usePostJob = (company_id: number) => {
+  const queryClient = useQueryClient()
   const userLogin = useUserLoginStore(s => s.user)
+
   const { isPending, isError, isSuccess, mutate } =
     useMutation({
       mutationFn: (job: Job) => {
@@ -127,7 +141,28 @@ export const usePostJob = () => {
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
           .then((res) => {
-            console.log(res)
+            return res.data
+          })
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["user", company_id] })
+      }
+    });
+
+  return { isPending, isError, isSuccess, mutate };
+};
+export const usePostUser = () => {
+  const userLogin = useUserLoginStore(s => s.user)
+  const { isPending, isError, isSuccess, mutate } =
+    useMutation({
+      mutationFn: (user: User) => {
+        return axios
+          .post(
+            `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user`,
+            user,
+            { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
+          )
+          .then((res) => {
             return res.data
           })
       },
