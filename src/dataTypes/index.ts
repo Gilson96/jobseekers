@@ -80,17 +80,21 @@ export type ApplicationProps = {
     step: number;
     setUserDetails: Dispatch<
         SetStateAction<{
+            name?: string
             email?: string;
             number?: string;
             address?: string;
             cv?: File;
+            jobs_applied?: Job[]
         }>
     >;
     userDetails?: {
+        name?: string | undefined
         email?: string | undefined;
         number?: string | undefined;
         address?: string | undefined;
         cv?: File | undefined;
+        jobs_applied?: Job[] | undefined
     };
     setStep: Dispatch<SetStateAction<number>>;
     job?: Job;
@@ -116,6 +120,7 @@ export type Skills_job = {
     skills_job_id?: number,
     skills_id?: number
     job_id?: number,
+    skills_name?: string
 }
 
 export type Application_user = {
@@ -137,7 +142,10 @@ export type Application_job = {
     email?: string,
     number?: string,
     address?: string,
-    cv?: string
+    cv?: string,
+    guest_name?: string,
+    guest_email?: string
+    guest_cv?: string
 }
 
 export type Saved_job = {
