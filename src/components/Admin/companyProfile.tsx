@@ -3,12 +3,7 @@ import type { Company } from "../../dataTypes";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import {
-  useEffect,
-  type Dispatch,
-  type FormEvent,
-  type SetStateAction,
-} from "react";
+import { useEffect, type FormEvent } from "react";
 import { useUpdateCompany } from "../../hooks/usePatchQueries";
 import { ButtonGroup, ButtonGroupText } from "../ui/button-group";
 import { toast } from "sonner";

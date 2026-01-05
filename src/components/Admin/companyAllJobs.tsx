@@ -19,10 +19,10 @@ const CompanyJobs = ({
 
   return (
     <section className="w-full">
-      <h2 className="pt-[2%] pb-[5%] text-lg">All jobs</h2>
-      <ul className="flex w-full flex-col">
+      <h2 className="pt-[2%] pb-[5%] text-lg lg:hidden">All jobs</h2>
+      <ul className="flex w-full flex-col lg:mt-4">
         {isUserFetching || isUserLoading ? (
-          <li className="flex h-full w-full items-center justify-between border-t border-b py-[10%]">
+          <li className="flex h-full w-full items-center justify-between border-t border-b py-[10%] lg:border-t-0">
             <span className="animate h-8 w-auto animate-pulse bg-neutral-300 text-neutral-300">
               Loading
             </span>
@@ -35,7 +35,7 @@ const CompanyJobs = ({
             <li
               key={job.job_id}
               onClick={() => setIsClicked(true)}
-              className="flex h-full w-full items-center justify-between border-t border-b py-[2%]"
+              className="flex h-full w-full items-center justify-between border-t border-b py-[2%] lg:first:border-t-0"
             >
               <CompanyJobDetails
                 job_id={job.job_id}

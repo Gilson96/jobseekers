@@ -1,12 +1,18 @@
 import { useState } from "react";
 import useScreenSize from "../../hooks/useScreenSize";
-import SideBarMenu from "./sideBarMenu";
 import TopMenu from "./topMenu";
 import CompanyAllJobs from "./companyAllJobs";
 import { useGetUser } from "../../hooks/useGetQueries";
 import type { Company } from "../../dataTypes";
 import CompanyPostJob from "./companyPostJob";
 import CompanyProfile from "./companyProfile";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
+import { PlusCircleIcon, UserCircle2Icon } from "lucide-react";
 
 const CompanyDashboard = () => {
   const screenSize = useScreenSize();
@@ -39,7 +45,6 @@ const CompanyDashboard = () => {
             isUserFetching={isUserFetching}
             isUserLoading={isUserLoading}
             company={company}
-            
           />
         )}
       </section>
@@ -48,7 +53,43 @@ const CompanyDashboard = () => {
 
   return (
     <section className="flex h-full w-full justify-between">
-      <SideBarMenu />
+      <section>
+        <CompanyAllJobs
+          isUserFetching={isUserFetching}
+          isUserLoading={isUserLoading}
+          company={company}
+        />
+      </section>
+      <section className="sticky top-1 mt-4 h-full w-[50%]">
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="flex">
+              <section className="flex items-center gap-3">
+                <PlusCircleIcon size={30} />
+                <span className="text-lg font-normal">Add new job</span>
+              </section>
+            </AccordionTrigger>
+            <AccordionContent>
+              <CompanyPostJob setActiveTab={setActiveTab} company={company} />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger className="flex items-center gap-3">
+              <section className="flex items-center gap-3">
+                <UserCircle2Icon size={30} />
+                <span className="text-lg font-normal">Update details</span>
+              </section>
+            </AccordionTrigger>
+            <AccordionContent>
+              <CompanyProfile
+                isUserFetching={isUserFetching}
+                isUserLoading={isUserLoading}
+                company={company}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
     </section>
   );
 };
