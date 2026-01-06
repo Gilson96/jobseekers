@@ -29,6 +29,7 @@ This application is a job board platform where companies post job openings and j
 ## Modes and features
 
 **Guest Mode**
+
 Guests can:
 
 - Browse a list of available jobs
@@ -37,6 +38,7 @@ Guests can:
 - Apply for jobs without creating an account
   
 **User Mode**
+
 Registered users can do everything a guest can, plus:
 
 - Save jobs for later
@@ -45,6 +47,7 @@ Registered users can do everything a guest can, plus:
 - Manage personal skills
   
 **Admin Mode**
+
 Admins can:
 
 - View all posted jobs
