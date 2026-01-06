@@ -15,9 +15,9 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     isLoading: savedJobsLoading,
   } = useGetSavedJob();
   const {
-    isError: isErrorPosting,
+    // isError: isErrorPosting,
     isPending: isPendingPosting,
-    isSuccess: isSuccessPosting,
+    // isSuccess: isSuccessPosting,
     mutate: postSavedJob,
   } = usePostSavedJobs(saved_job);
 
@@ -38,9 +38,9 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
   };
 
   const {
-    isError: isErrorDeleting,
+    // isError: isErrorDeleting,
     isPending: isPendingDeleting,
-    isSuccess: isSuccessDeleting,
+    // isSuccess: isSuccessDeleting,
     mutate: deleteSavedJob,
   } = useDeleteSavedJobs(findSavedJob()?.saved_job_id!);
 

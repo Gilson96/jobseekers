@@ -10,7 +10,7 @@ type UserLoginTypes = {
 
 export const useUserLoginStore = create<UserLoginTypes>()(
     persist(
-        (set, get) => ({
+        (set) => ({
             user: {},
             setUserDetails: (user?: User) => set(() => ({ user: user })),
             logout: () => set(() => ({ user: {}, localStorage: localStorage.removeItem('userLogin-storage') }))

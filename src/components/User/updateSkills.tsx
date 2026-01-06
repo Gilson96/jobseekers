@@ -31,7 +31,7 @@ const UpdateSkills = ({
 
   const {
     isError: isErrorDeleting,
-    isPending: isPendingDeleting,
+    // isPending: isPendingDeleting,
     isSuccess: isSuccessDeleting,
     mutate: removeSkills,
   } = useDeleteUserSkills(choseSkill?.skills_user_id!);
