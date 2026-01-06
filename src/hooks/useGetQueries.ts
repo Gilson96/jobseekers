@@ -8,7 +8,7 @@ export const useGetAllJobs = () => {
     queryKey: ["jobs"],
     queryFn: () =>
       axios
-        .get("http://jobseekers-api-c462d8f75521.herokuapp.com/api/job",
+        .get("https://jobseekers-api-c462d8f75521.herokuapp.com/api/job",
         )
         .then((res) => {
           return res.data;
