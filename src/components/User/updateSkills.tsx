@@ -18,13 +18,13 @@ const UpdateSkills = ({ user }: { user: User }) => {
   const {
     isError: isErrorDeleting,
     // isPending: isPendingDeleting,
-    isSuccess: isSuccessDeleting,
+    // isSuccess: isSuccessDeleting,
     mutate: removeSkills,
   } = useDeleteUserSkills(choseSkill?.skills_user_id!);
   const {
     isError: isErrorPosting,
     isPending: isPendingPosting,
-    isSuccess: isSuccessPosting,
+    // isSuccess: isSuccessPosting,
     mutate: addSkills,
   } = usePostSkillsUser();
 
