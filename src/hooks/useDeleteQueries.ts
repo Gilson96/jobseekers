@@ -11,7 +11,7 @@ export const useDeleteSavedJobs = (saved_job_id: number) => {
             mutationFn: () => {
                 return axios
                     .delete(
-                        `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${saved_job_id}`,
+                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${saved_job_id}`,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
                     .then(() => { })
@@ -32,7 +32,7 @@ export const useDeleteUserSkills = (skills_user_id: number) => {
             mutationFn: () => {
                 return axios
                     .delete(
-                        `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user/${skills_user_id}`,
+                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user/${skills_user_id}`,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
                     .then(() => { })
@@ -54,7 +54,7 @@ export const useDeleteJobSkills = (skills_job_id: number, job_id: number) => {
             mutationFn: () => {
                 return axios
                     .delete(
-                        `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/skills_job/${skills_job_id}`,
+                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/skills_job/${skills_job_id}`,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
                     .then(() => { })
@@ -76,7 +76,7 @@ export const useDeleteCompanyJob = (job_id: number, company_id: number) => {
             mutationFn: () => {
                 return axios
                     .delete(
-                        `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/${job_id}`,
+                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/${job_id}`,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
                     .then(() => { })

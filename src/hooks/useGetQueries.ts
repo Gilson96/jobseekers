@@ -24,7 +24,7 @@ export const useGetOneJob = (job_id: number) => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/${job_id}`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/${job_id}`,
         )
         .then((res) => {
           return res.data.job;
@@ -43,7 +43,7 @@ export const useGetUser = () => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/${userLogin.role === 'user' ? 'user' : 'company'}/${userLogin?.id}`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/${userLogin.role === 'user' ? 'user' : 'company'}/${userLogin?.id}`,
           { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
@@ -61,7 +61,7 @@ export const useGetSavedJob = () => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${userLogin.id}`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${userLogin.id}`,
           { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {
@@ -78,7 +78,7 @@ export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/search?job_title=${searchInput}&company_name=${searchInput}&skills_name=${searchInput}`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/search?job_title=${searchInput}&company_name=${searchInput}&skills_name=${searchInput}`,
         )
         .then((res) => {
           return res.data;
@@ -94,7 +94,7 @@ export const useGetAllSkills = () => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/skills`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/skills`,
         )
         .then((res) => {
           return res.data;
@@ -111,7 +111,7 @@ export const useGetApplicationJob = (job_id: number) => {
     queryFn: () =>
       axios
         .get(
-          `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job/${job_id}`,
+          `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job/${job_id}`,
           { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
         )
         .then((res) => {

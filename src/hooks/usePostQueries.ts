@@ -10,7 +10,7 @@ export const usePostLogin = () => {
       mutationFn: (login: User) => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/login",
+            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/login",
             login,
           )
           .then((res) => {
@@ -32,7 +32,7 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
       mutationFn: () => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
+            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
             { user_id: save_job.user_id, job_id: save_job.job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -53,7 +53,7 @@ export const usePostApplication = (guest_name: string, guest_email: string, gues
       mutationFn: ({ user_id, job_id }) => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
+            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
             { user_id: user_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -96,7 +96,7 @@ export const usePostSkillsUser = () => {
       mutationFn: ({ skills_id, user_id }: { skills_id: number, user_id: number }) => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user",
+            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user",
             { skills_id: skills_id, user_id: user_id }, { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
           .then(() => { })
@@ -115,7 +115,7 @@ export const usePostSkillsJob = (job_id: number) => {
       mutationFn: ({ skills_id, job_id }: { skills_id: number, job_id: number }) => {
         return axios
           .post(
-            "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/skills_job",
+            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/skills_job",
             { skills_id: skills_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -141,7 +141,7 @@ export const usePostJob = (company_id: number) => {
       mutationFn: (job: Job) => {
         return axios
           .post(
-            `http://jobseekers-api-c462d8f75521.herokuapp.com/api/job`,
+            `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job`,
             job,
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -164,7 +164,7 @@ export const usePostUser = () => {
       mutationFn: (user: User) => {
         return axios
           .post(
-            `http://jobseekers-api-c462d8f75521.herokuapp.com/api/user`,
+            `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user`,
             user,
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
