@@ -2,8 +2,6 @@ import { Loader2Icon, LoaderCircle } from "lucide-react";
 import { useGetSavedJob, useGetUser } from "../../hooks/useGetQueries";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import type { User } from "../../dataTypes";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import JobBigCard from "../Jobs/jobBigCard";
 
 const MyJobs = () => {
   const { isFetching, isLoading, userData: user } = useGetUser();
@@ -24,10 +22,7 @@ const MyJobs = () => {
           {(isFetching || isLoading) && (
             <Loader2Icon className="animate animate-spin place-self-center text-teal-500" />
           )}
-          <SavedJobs
-            user={user as { user: User }}
-            userIsFetching={isFetching}
-          />
+          <SavedJobs />
         </TabsContent>
         <TabsContent
           value="applied_jobs"
@@ -36,10 +31,7 @@ const MyJobs = () => {
           {(isFetching || isLoading) && (
             <Loader2Icon className="animate animate-spin place-self-center text-teal-500" />
           )}
-          <AppliedJobs
-            user={user as { user: User }}
-            userIsFetching={isFetching}
-          />
+          <AppliedJobs user={user as { user: User }} />
         </TabsContent>
       </Tabs>
     </section>
@@ -48,13 +40,7 @@ const MyJobs = () => {
 
 export default MyJobs;
 
-export const SavedJobs = ({
-  user,
-  userIsFetching,
-}: {
-  user: { user: User };
-  userIsFetching: boolean;
-}) => {
+export const SavedJobs = () => {
   const {
     isFetching: savedJobFetching,
     isLoading: savedJobLoading,
@@ -71,53 +57,21 @@ export const SavedJobs = ({
 
   return savedJobs?.map((job) => {
     return job.saved_jobs?.map((saved) => (
-      <Dialog>
-        <DialogTrigger>
-          <div className="border-b pb-[3%] text-left leading-7">
-            <p className="font-medium">{saved.title}</p>
-            <p>{saved.company_name}</p>
-            <p>{saved.location}</p>
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <JobBigCard
-            setJob_id={() => {}}
-            job_id={saved.job_id as number}
-            guestUser={undefined}
-            user={user}
-            userIsFetching={userIsFetching}
-          />
-        </DialogContent>
-      </Dialog>
+      <div className="border-b pb-[3%] text-left leading-7">
+        <p className="font-medium">{saved.title}</p>
+        <p>{saved.company_name}</p>
+        <p>{saved.location}</p>
+      </div>
     ));
   });
 };
 
-export const AppliedJobs = ({
-  user,
-  userIsFetching,
-}: {
-  user: { user: User };
-  userIsFetching: boolean;
-}) => {
+export const AppliedJobs = ({ user }: { user: { user: User } }) => {
   return user?.user?.jobs_applied?.map((job) => (
-    <Dialog>
-      <DialogTrigger>
-        <div className="border-b pb-[3%] text-left leading-7">
-          <p className="font-medium">{job.title}</p>
-          <p>{job.company_name}</p>
-          <p>{job.location}</p>
-        </div>
-      </DialogTrigger>
-      <DialogContent>
-        <JobBigCard
-          setJob_id={() => {}}
-          job_id={job.job_id as number}
-          guestUser={undefined}
-          user={user}
-          userIsFetching={userIsFetching}
-        />
-      </DialogContent>
-    </Dialog>
+    <div className="border-b pb-[3%] text-left leading-7">
+      <p className="font-medium">{job.title}</p>
+      <p>{job.company_name}</p>
+      <p>{job.location}</p>
+    </div>
   ));
 };

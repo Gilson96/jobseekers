@@ -76,7 +76,7 @@ export const useGetSavedJob = () => {
 };
 
 export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {
-  const { isLoading, isFetching, error, data } = useQuery<Job[]>({
+  const { isLoading, isFetching, isError, data } = useQuery<Job[]>({
     queryKey: [isSearchingJob],
     queryFn: () =>
       axios
@@ -86,9 +86,10 @@ export const useSearchJob = (searchInput: string, isSearchingJob: boolean) => {
         .then((res) => {
           return res.data;
         }),
+    retry: 1
   });
 
-  return { isLoading, isFetching, error, searchedJob: data };
+  return { isLoading, isFetching, isError, searchedJob: data };
 };
 
 export const useGetAllSkills = () => {

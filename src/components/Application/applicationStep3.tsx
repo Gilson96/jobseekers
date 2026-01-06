@@ -37,10 +37,9 @@ const ApplicationStep3 = ({
   }, [isSuccess, isError]);
 
   const handleApplication = () => {
-    if (user?.user?.user_id === undefined) {
+    if (user === undefined) {
       mutate({ user_id: userGuestId, job_id: job?.job_id as number });
       setUserDetails({
-        ...user,
         name: "guest",
         email: userDetails?.email,
         number: userDetails?.number,
@@ -49,11 +48,11 @@ const ApplicationStep3 = ({
       });
       setStep((prev) => prev + 1);
     } else {
-      mutate({ user_id: user.user.user_id, job_id: job?.job_id as number });
+      mutate({ user_id: user.user.user_id!, job_id: job?.job_id as number });
     }
   };
 
-  if (user?.user.user_id !== undefined && isSuccess) {
+  if (user !== undefined && isSuccess) {
     return <Navigate to={"/myJobs"} />;
   }
 

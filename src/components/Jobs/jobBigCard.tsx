@@ -15,7 +15,7 @@ const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
     user?.user?.jobs_applied?.some((applied) => applied.job_id === job?.job_id);
 
   return (
-    <article className="sticky top-1 right-0 flex cursor-pointer flex-col lg:rounded lg:border p-[3%] transition-all transition-discrete hover:shadow max-lg:h-100 max-lg:overflow-y-auto lg:h-140 hover:[&>h2]:underline">
+    <article className="sticky top-1 right-0 flex cursor-pointer flex-col p-[3%] transition-all transition-discrete hover:shadow max-lg:h-100 max-lg:overflow-y-auto lg:h-140 lg:w-[80%] lg:rounded lg:border hover:[&>h2]:underline">
       <h2
         className={`${jobFetching ? "animante my-[2%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[2%] text-xl font-bold"}`}
       >

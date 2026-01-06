@@ -51,7 +51,7 @@ const CompanyRemoveJob = ({
             This will remove this job from the job board
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex w-full flex-col">
+        <DialogFooter className="flex w-full flex-col sm:flex-col">
           {isError && (
             <p className="text-xs text-red-500">
               * Somenthing went wrong. Try again later

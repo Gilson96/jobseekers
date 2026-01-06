@@ -4,7 +4,9 @@ import axios from "axios";
 import type { Company, Job, User } from "../dataTypes";
 
 export const useUpdateUser = () => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: (user: User) => {
@@ -16,6 +18,9 @@ export const useUpdateUser = () => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["user", userLogin.id] })
+            }
         });
 
     return { isPending, isError, isSuccess, mutate };

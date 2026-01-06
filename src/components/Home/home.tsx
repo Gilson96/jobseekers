@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetUser, useSearchJob } from "../../hooks/useGetQueries";
 import useScreenSize from "../../hooks/useScreenSize";
 import { Button } from "../ui/button";
@@ -12,6 +12,7 @@ import JobsMobiileView from "../Jobs/jobsMobileView";
 import JobsDesktopView from "../Jobs/jobsDesktopView";
 import { useUserLoginStore } from "../../hooks/store";
 import type { User } from "../../dataTypes";
+import { toast } from "sonner";
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -21,6 +22,7 @@ const Home = () => {
   const {
     isFetching: searchFetching,
     isLoading: searchLoading,
+    isError: searchError,
     searchedJob,
   } = useSearchJob(searchInput, isSearchingJob);
   const {
@@ -30,6 +32,12 @@ const Home = () => {
   } = useGetUser();
 
   const guestUser = useUserLoginStore((s) => s.user);
+
+  useEffect(() => {
+    if (searchError) {
+      return () => setSearchInput("");
+    }
+  }, [searchError]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

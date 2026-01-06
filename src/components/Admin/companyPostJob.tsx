@@ -27,7 +27,7 @@ const CompanyPostJob = ({
       toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
       setActiveTab("allJobs");
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

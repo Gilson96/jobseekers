@@ -44,6 +44,7 @@ const ApplicationStep1 = ({
     }
   };
 
+  console.log(user)
   return (
     <>
       {step === 1 && (
