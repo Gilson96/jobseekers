@@ -6,7 +6,6 @@ import UpdateUser from "./updateUser";
 import UpdateSkills from "./updateSkills";
 import type { User as UserTypes } from "../../dataTypes";
 import { useState } from "react";
-import { Link } from "react-router";
 
 const User = () => {
   const { isFetching, isLoading, userData } = useGetUser();
