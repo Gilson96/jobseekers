@@ -1,6 +1,7 @@
 import { LoaderCircle } from "lucide-react";
 import { useGetSavedJob, useGetUser } from "../../hooks/useGetQueries";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import type { User } from "../../dataTypes";
 
 const MyJobs = () => {
   return (
@@ -67,7 +68,10 @@ export const AppliedJobs = () => {
       </div>
     );
   }
-  return userData?.user?.jobs_applied?.map((job) => (
+
+  const { user } = userData as { user: User };
+
+  return user?.jobs_applied?.map((job) => (
     <div className="border-b pb-[3%] leading-7">
       <p className="font-medium">{job.title}</p>
       <p>{job.company_name}</p>

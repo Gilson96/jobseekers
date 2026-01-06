@@ -1,4 +1,4 @@
-import { skipToken, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Application_job, Company, Job, Saved_job, Skills, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
@@ -54,10 +54,10 @@ export const useGetUser = () => {
   return { isLoading, isFetching, userData: data, refetch };
 };
 
-export const useGetSavedJob = (job_id: number) => {
+export const useGetSavedJob = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isLoading, isFetching, data, refetch } = useQuery<Saved_job[]>({
-    queryKey: ["saved_jobs", job_id],
+    queryKey: ["saved_jobs"],
     queryFn: () =>
       axios
         .get(

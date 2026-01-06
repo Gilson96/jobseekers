@@ -3,11 +3,11 @@ import axios, { AxiosError } from "axios";
 import type { Application, Job, Saved_job, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
-export const usePostLogin = (login: User) => {
+export const usePostLogin = () => {
   const { setUserDetails } = useUserLoginStore()
   const { error, isPending, data, isError, isSuccess, mutate } =
-    useMutation<User>({
-      mutationFn: () => {
+    useMutation({
+      mutationFn: (login: User) => {
         return axios
           .post(
             "http://jobseekers-api-c462d8f75521.herokuapp.com/api/login",
@@ -24,7 +24,9 @@ export const usePostLogin = (login: User) => {
 };
 
 export const usePostSavedJobs = (save_job: Saved_job) => {
+  const queryClient = useQueryClient()
   const userLogin = useUserLoginStore(s => s.user)
+
   const { isPending, data, isError, isSuccess, mutate } =
     useMutation({
       mutationFn: () => {
@@ -36,6 +38,9 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
           )
           .then(() => { })
       },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["saved_jobs"] })
+      }
     });
 
   return { isPending, user: data, isError, isSuccess, mutate };
@@ -151,6 +156,7 @@ export const usePostJob = (company_id: number) => {
 
   return { isPending, isError, isSuccess, mutate };
 };
+
 export const usePostUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, isError, isSuccess, mutate } =

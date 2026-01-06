@@ -14,13 +14,21 @@ import { Navigate } from "react-router";
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState("");
-  const { isError, isPending, isSuccess, mutate } = usePostLogin({
-    email: userEmail,
-    password: "company123",
-  });
+  const { isError, isPending, isSuccess, mutate } = usePostLogin();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate();
+    if (userEmail === "user@user.com") {
+      mutate({
+        email: userEmail,
+        password: "user123",
+      });
+    } else {
+      mutate({
+        email: userEmail,
+        password: "company123",
+      });
+    }
   };
 
   if (isSuccess) {

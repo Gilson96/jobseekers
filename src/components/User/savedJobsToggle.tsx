@@ -1,4 +1,3 @@
-import { toast } from "sonner";
 import type { Job } from "../../dataTypes";
 import { useUserLoginStore } from "../../hooks/store";
 import { useGetSavedJob } from "../../hooks/useGetQueries";
@@ -14,8 +13,7 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     savedJobs,
     isFetching: savedJobsFetching,
     isLoading: savedJobsLoading,
-    refetch,
-  } = useGetSavedJob(job?.job_id as number);
+  } = useGetSavedJob();
   const {
     isError: isErrorPosting,
     isPending: isPendingPosting,
@@ -67,7 +65,6 @@ const AddToSavedJobs = ({ job }: { job: Job }) => {
     isPendingPosting ||
     isPendingDeleting
   ) {
-    refetch();
     return (
       <button className="flex w-10 items-center justify-center rounded border p-1.25">
         <Loader2Icon className="animate animate-spin text-teal-500" />

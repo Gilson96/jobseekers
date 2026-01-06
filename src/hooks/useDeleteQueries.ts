@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUserLoginStore } from "./store";
 import axios from "axios";
-import type { Company } from "../dataTypes";
 
 export const useDeleteSavedJobs = (saved_job_id: number) => {
+    const queryClient = useQueryClient()
     const userLogin = useUserLoginStore(s => s.user)
+
     const { isPending, isError, isSuccess, mutate } =
         useMutation({
             mutationFn: () => {
@@ -15,6 +16,9 @@ export const useDeleteSavedJobs = (saved_job_id: number) => {
                     )
                     .then(() => { })
             },
+            onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ["saved_jobs"] })
+            }
         });
     return { isPending, isError, isSuccess, mutate };
 };

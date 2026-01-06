@@ -9,7 +9,7 @@ import ApplicationStep1 from "./applicationStep1";
 import ApplicationStep2 from "./applicationStep2";
 import ApplicationStep3 from "./applicationStep3";
 import type { Job, User } from "../../dataTypes";
-import { useAsyncError, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import ApplicationStep4 from "./applicationStep4";
 import { useGetUser } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";

@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { useGetAllJobs, useGetUser } from "../../hooks/useGetQueries";
+import { useGetAllJobs } from "../../hooks/useGetQueries";
 import { Loader2Icon } from "lucide-react";
 import JobCard from "./jobCard";
 import type { JobSearch } from "../../dataTypes";
@@ -14,12 +14,11 @@ const JobsMobiileView = ({
   user,
   guestUser,
   userIsFetching,
-  userIsLoading,
 }: JobSearch) => {
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const [job_id, setJob_id] = useState(1);
 
-  console.log(jobs)
+  console.log(jobs);
   if (isLoading || searchLoading) {
     return (
       <section className="py-[2%]">

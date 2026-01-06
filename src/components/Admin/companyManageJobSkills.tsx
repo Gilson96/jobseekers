@@ -1,5 +1,5 @@
 import { PlusCircle, XCircle } from "lucide-react";
-import type { Job, Skills_job } from "../../dataTypes";
+import type { Skills_job } from "../../dataTypes";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { useState } from "react";
 import { usePostSkillsJob } from "../../hooks/usePostQueries";
@@ -15,7 +15,6 @@ import { useGetAllSkills, useGetOneJob } from "../../hooks/useGetQueries";
 
 const CompanyManageJobSkills = ({ job_id }: { job_id: number }) => {
   const [choseSkill, setChoseSkill] = useState<Skills_job>();
-  const [isClicked, setIsClicked] = useState(false);
   const [open, setOpen] = useState(false);
 
   const {
