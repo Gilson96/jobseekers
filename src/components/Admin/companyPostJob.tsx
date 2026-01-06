@@ -54,10 +54,10 @@ const CompanyPostJob = ({
 
   return (
     <section>
-      <h2 className="border-b pt-[2%] pb-[5%] text-lg font-medium lg:pt-4 lg:pb-2 lg:text-xl lg:font-medium">
+      <h2 className="border-b pt-[2%] pb-[5%] text-lg lg:pt-4 lg:pb-2 lg:text-xl lg:font-medium">
         Add a job
       </h2>
-      <p className="max-lg:hidden flex w-full flex-col text-left italic">
+      <p className="flex w-full flex-col text-left italic max-lg:hidden">
         <span>*All values required</span>
         <span className="text-red-500">
           {isError && "Somenthing went wrong. Try again later"}

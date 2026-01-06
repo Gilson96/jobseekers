@@ -16,7 +16,7 @@ const ApplicationStep1 = ({
       [k: string]: string;
     };
 
-    if (user?.user?.user_id !== undefined) {
+    if (user !== undefined) {
       setUserDetails({
         ...userDetails,
         name: dataFromForm.name.length > 0 ? dataFromForm.name : user.user.name,
@@ -47,12 +47,19 @@ const ApplicationStep1 = ({
   return (
     <>
       {step === 1 && (
-        <FormUserDetails
-          buttonText="Continue"
-          handleSubmit={handleSubmit}
-          isPending={false}
-          user={user?.user!}
-        />
+        <>
+          {user !== undefined && (
+            <h2 className="pb-[2%] text-lg font-medium lg:pt-[2%]">
+              Press continue or edit application
+            </h2>
+          )}
+          <FormUserDetails
+            buttonText="Continue"
+            handleSubmit={handleSubmit}
+            isPending={false}
+            user={user?.user!}
+          />
+        </>
       )}
     </>
   );

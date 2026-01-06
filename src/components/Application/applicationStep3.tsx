@@ -18,6 +18,7 @@ const ApplicationStep3 = ({
   const userGuest = useUserLoginStore((s) => s.user);
   const userGuestId = 1;
   const userGuestCv = userDetails?.cv?.name!;
+
   const { isError, isPending, isSuccess, mutate } = usePostApplication(
     userDetails?.name!,
     userDetails?.email!,
@@ -76,7 +77,9 @@ const ApplicationStep3 = ({
               <p className="font-medium">Home address</p>
               <p>{userDetails?.address}</p>
             </div>
-            <div className="border-b py-[3%]">
+            <div
+              className={`${user !== undefined && "hidden"} border-b py-[3%]`}
+            >
               <p className="font-medium">CV</p>
               <p>{userDetails?.cv?.name}</p>
             </div>
@@ -90,7 +93,9 @@ const ApplicationStep3 = ({
               )}
             </Button>
             <Button
-              onClick={() => setStep((prev) => prev - 1)}
+              onClick={() =>
+                setStep((prev) => (user !== undefined ? prev - 2 : prev - 1))
+              }
               className="w-full text-teal-600"
               variant={"outline"}
             >

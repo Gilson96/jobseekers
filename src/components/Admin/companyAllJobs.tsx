@@ -19,7 +19,7 @@ const CompanyJobs = ({
 
   return (
     <section className="w-full">
-      <h2 className="pt-[2%] pb-[5%] text-lg lg:hidden">All jobs</h2>
+      <h2 className="pt-[2%] pb-[5%] px-[5%] text-lg lg:hidden">All jobs</h2>
       <ul className="flex w-full flex-col lg:mt-4">
         {isUserFetching || isUserLoading ? (
           <li className="flex h-full w-full items-center justify-between border-t border-b py-[10%] lg:border-t-0">
@@ -35,7 +35,7 @@ const CompanyJobs = ({
             <li
               key={job.job_id}
               onClick={() => setIsClicked(true)}
-              className="flex h-full w-full items-center justify-between border-t border-b py-[2%] lg:first:border-t-0"
+              className="flex h-full w-full flex-col items-center justify-between border-t border-b py-[2%] lg:first:border-t-0"
             >
               <CompanyJobDetails
                 job_id={job.job_id}
@@ -44,7 +44,7 @@ const CompanyJobs = ({
                 isClicked={isClicked}
                 setIsClicked={setIsClicked}
               />
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 py-[2%]">
                 <CompanyManageJobSkills job_id={job.job_id} />
                 <CompanyUpdateJob job_id={job.job_id} />
                 <CompanyJobAnalysis job_id={job.job_id} />

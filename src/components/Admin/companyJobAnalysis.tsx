@@ -42,7 +42,6 @@ const CompanyJobAnalysis = ({ job_id }: { job_id: number }) => {
               <TableHead>App n.</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>Cv</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="w-full">
@@ -65,9 +64,6 @@ const CompanyJobAnalysis = ({ job_id }: { job_id: number }) => {
                     {applier.email?.length === 0
                       ? applier.guest_name
                       : applier.email}
-                  </TableCell>
-                  <TableCell>
-                    {applier.cv?.length === 0 ? applier.guest_cv : applier.cv}
                   </TableCell>
                 </TableRow>
               ))

@@ -28,10 +28,10 @@ const CompanyJobDetails = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger className="w-full px-[5%] py-[2%]">
         <p className="flex w-full cursor-pointer flex-col items-start justify-start hover:underline">
-          <span className="min-w-36 text-left">{title}</span>
-          <span className="w-[80%] text-left text-sm font-light text-neutral-600">
+          <span className="text-lg">{title}</span>
+          <span className="text-sm font-light text-neutral-600">
             {location}
           </span>
         </p>
