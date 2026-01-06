@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { skipToken, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Application_job, Company, Job, Saved_job, Skills, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
@@ -29,8 +29,6 @@ export const useGetOneJob = (job_id: number) => {
         .then((res) => {
           return res.data.job;
         })
-
-
   });
 
   return { isLoading, isFetching, error, job: data };
@@ -38,9 +36,10 @@ export const useGetOneJob = (job_id: number) => {
 
 export const useGetUser = () => {
   const userLogin = useUserLoginStore(s => s.user)
-  const { isLoading, isFetching, data, refetch } = useQuery<{ user: User } | { company: Company }>({
+
+  const { isLoading, isFetching, data } = useQuery<{ user: User } | { company: Company }>({
     queryKey: ["user", userLogin?.id],
-    queryFn: () =>
+    queryFn: userLogin.role !== undefined ? () =>
       axios
         .get(
           `https://jobseekers-api-c462d8f75521.herokuapp.com/api/${userLogin.role === 'user' ? 'user' : 'company'}/${userLogin?.id}`,
@@ -49,16 +48,18 @@ export const useGetUser = () => {
         .then((res) => {
           return res.data;
         })
+      :
+      skipToken
   });
 
-  return { isLoading, isFetching, userData: data, refetch };
+  return { isLoading, isFetching, userData: data };
 };
 
 export const useGetSavedJob = () => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isLoading, isFetching, data, refetch } = useQuery<Saved_job[]>({
     queryKey: ["saved_jobs"],
-    queryFn: () =>
+    queryFn: userLogin.role !== undefined ? () =>
       axios
         .get(
           `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job/${userLogin.id}`,
@@ -67,6 +68,8 @@ export const useGetSavedJob = () => {
         .then((res) => {
           return res.data;
         })
+      :
+      skipToken
   });
 
   return { isLoading, isFetching, savedJobs: data, refetch };
