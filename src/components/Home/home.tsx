@@ -12,7 +12,6 @@ import JobsMobiileView from "../Jobs/jobsMobileView";
 import JobsDesktopView from "../Jobs/jobsDesktopView";
 import { useUserLoginStore } from "../../hooks/store";
 import type { User } from "../../dataTypes";
-import { toast } from "sonner";
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState("");
