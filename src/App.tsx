@@ -18,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
 
         {user.role === "admin" ? (
           <>
@@ -26,7 +27,6 @@ const App = () => {
         ) : (
           <>
             <Route path="/application" element={<Application />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/user" element={<User />} />
             <Route path="/myJobs" element={<MyJobs />} />
           </>
