@@ -5,7 +5,7 @@ import type { Job } from "../../dataTypes";
 const FormJobDetails = ({ action, job }: { action: string; job?: Job }) => {
   return (
     <>
-      <section className="flex w-full justify-between gap-3">
+      <section className="flex flex-col w-full justify-between gap-3 lg:flex-row">
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label className="font-normal" htmlFor="title">

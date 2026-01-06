@@ -40,7 +40,7 @@ const ApplicationStep3 = ({
     }
   };
 
-  if (isSuccess) {
+  if (user?.user.user_id !== undefined && isSuccess) {
     return <Navigate to={"/myJobs"} />;
   }
   if (isError) {

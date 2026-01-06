@@ -69,7 +69,7 @@ export const AppliedJobs = () => {
     );
   }
 
-  const { user } = userData as { user: User };
+  const { user } = (userData as { user: User }) ?? {};
 
   return user?.jobs_applied?.map((job) => (
     <div className="border-b pb-[3%] leading-7">

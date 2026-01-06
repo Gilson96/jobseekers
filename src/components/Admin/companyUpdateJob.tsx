@@ -93,7 +93,7 @@ const CompanyUpdateJob = ({ job_id }: { job_id: number }) => {
           Update details
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="h-[80%] overflow-hidden overflow-y-auto">
         <DialogTitle className="w-full border-b pb-[3%]">
           Update job details
         </DialogTitle>
