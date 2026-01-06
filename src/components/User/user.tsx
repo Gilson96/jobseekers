@@ -8,7 +8,7 @@ import type { User as UserTypes } from "../../dataTypes";
 import { useState } from "react";
 
 const User = () => {
-  const { isFetching, isLoading, userData, refetch } = useGetUser();
+  const { isFetching, isLoading, userData } = useGetUser();
   const [open, setOpen] = useState(false);
 
   if (isLoading) {
@@ -63,7 +63,7 @@ const User = () => {
             <ChevronRight />
           </DialogTrigger>
           <DialogContent>
-            <UpdateUser refetch={refetch} user={user.user!} setOpen={setOpen} />
+            <UpdateUser user={user.user!} setOpen={setOpen} />
           </DialogContent>
         </Dialog>
       </section>
@@ -85,7 +85,7 @@ const User = () => {
             <ChevronRight />
           </DialogTrigger>
           <DialogContent className="h-[80%] overflow-hidden">
-            <UpdateSkills refetch={refetch} user={user.user!} />
+            <UpdateSkills user={user.user!} />
           </DialogContent>
         </Dialog>
       </section>

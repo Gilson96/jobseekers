@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Company, Skills_user, User } from "../../dataTypes";
+import type { Skills_user, User } from "../../dataTypes";
 import { Loader2Icon, PlusCircle, XCircle } from "lucide-react";
 import { useGetAllSkills } from "../../hooks/useGetQueries";
 import {
@@ -10,22 +10,8 @@ import {
 } from "../ui/accordion";
 import { useDeleteUserSkills } from "../../hooks/useDeleteQueries";
 import { usePostSkillsUser } from "../../hooks/usePostQueries";
-import type {
-  QueryObserverResult,
-  RefetchOptions,
-} from "@tanstack/react-query";
 
-const UpdateSkills = ({
-  user,
-  refetch,
-}: {
-  user: User;
-  refetch: (
-    options?: RefetchOptions | undefined,
-  ) => Promise<
-    QueryObserverResult<{ user: User } | { company: Company }, Error>
-  >;
-}) => {
+const UpdateSkills = ({ user }: { user: User }) => {
   const { isFetching, isLoading, skills } = useGetAllSkills();
   const [choseSkill, setChoseSkill] = useState<Skills_user>();
 
@@ -46,17 +32,11 @@ const UpdateSkills = ({
     return <Loader2Icon className="animate animate-spin text-teal-500" />;
   }
 
-  if (isSuccessPosting || isSuccessDeleting) {
-    refetch();
-  }
-
-
   return (
     <section className="flex flex-col justify-between p-[2%]">
       <section>
         <h2 className="border-b py-[2%] text-lg font-medium">My skills</h2>
         <ul className="flex flex-wrap gap-4 py-[4%]">
-          
           {user?.skills?.map((skill) => (
             <li
               className={`flex w-auto items-center gap-2 rounded-full border p-[2%]`}

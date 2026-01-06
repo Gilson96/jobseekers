@@ -1,27 +1,29 @@
-import type { Dispatch, FormEvent, SetStateAction } from "react";
-import type { Company, User } from "../../dataTypes";
+import {
+  useEffect,
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+} from "react";
+import type { User } from "../../dataTypes";
 import { useUpdateUser } from "../../hooks/usePatchQueries";
 import { toast } from "sonner";
 import FormUserDetails from "../ui/formUserDetails";
-import type {
-  QueryObserverResult,
-  RefetchOptions,
-} from "@tanstack/react-query";
 
 const UpdateUser = ({
   user,
   setOpen,
-  refetch,
 }: {
   user: User;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  refetch: (
-    options?: RefetchOptions | undefined,
-  ) => Promise<
-    QueryObserverResult<{ user: User } | { company: Company }, Error>
-  >;
 }) => {
   const { isError, isPending, isSuccess, mutate } = useUpdateUser();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
+      return setOpen(false);
+    }
+  }, [isSuccess]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,11 +43,6 @@ const UpdateUser = ({
     };
     mutate(updatedUser);
   };
-
-  if (isSuccess) {
-    setOpen(false);
-    refetch();
-  }
 
   if (isError) {
     return toast.error("Something went wrong, Try agan later.");
