@@ -6,7 +6,9 @@ import { Link } from "react-router";
 import AddToSavedJobs from "../User/savedJobsToggle";
 
 const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
-  const { job, isFetching: jobFetching } = useGetOneJob(job_id!);
+  const { job, isFetching: jobFetching } = useGetOneJob(
+    job_id === undefined ? 1 : job_id,
+  );
 
   const isJobApplied =
     guestUser?.jobs_applied?.some(
