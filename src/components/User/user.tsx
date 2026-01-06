@@ -21,12 +21,6 @@ const User = () => {
 
   const user = userData as { user: UserTypes };
 
-  const convertedUserCvToBytes = new Uint8Array(user?.user?.cv?.data!);
-  const convertedUserCvToBlob = new Blob([convertedUserCvToBytes], {
-    type: "application/pdf",
-  });
-  const userCv = URL.createObjectURL(convertedUserCvToBlob);
-
   return (
     <section className="flex h-full w-full flex-col">
       <section className="cursor-pointer border-b pt-[5%] pb-[8%] hover:bg-neutral-400/4 lg:flex lg:w-full lg:items-center lg:pb-[3%]">
@@ -91,20 +85,10 @@ const User = () => {
             <ChevronRight />
           </DialogTrigger>
           <DialogContent className="h-[80%] overflow-hidden">
-            <UpdateSkills user={user.user!} />
-          </DialogContent>
-        </Dialog>
-      </section>
-      <section>
-        <Dialog>
-          <DialogTrigger className="flex w-full items-center lg:w-full">
-            <p className="pt-[5%] text-lg underline">User cv</p>
-          </DialogTrigger>
-          <DialogContent className="h-[80%] overflow-hidden">
-            <embed
-              src={userCv}
-              className="mt-2 h-full w-full overflow-hidden"
-              title="user CV"
+            <UpdateSkills
+              user={user.user!}
+              isUserFetching={isFetching}
+              isUserLoading={isLoading}
             />
           </DialogContent>
         </Dialog>

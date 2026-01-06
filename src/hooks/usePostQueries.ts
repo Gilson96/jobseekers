@@ -90,7 +90,9 @@ export const usePostApplication = (guest_name: string, guest_email: string, gues
 };
 
 export const usePostSkillsUser = () => {
+  const queryClient = useQueryClient()
   const userLogin = useUserLoginStore(s => s.user)
+
   const { isPending, isError, isSuccess, mutate } =
     useMutation({
       mutationFn: ({ skills_id, user_id }: { skills_id: number, user_id: number }) => {
@@ -101,6 +103,9 @@ export const usePostSkillsUser = () => {
           )
           .then(() => { })
       },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["user", userLogin.id] })
+      }
     });
 
   return { isPending, isError, isSuccess, mutate };
