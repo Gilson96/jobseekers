@@ -4,6 +4,8 @@ This application is a job board platform where companies post job openings and j
 
 > Demo login credentials for all user roles are provided within the application.
 
+**Live Demo**: [https://jobseekerss.netlify.app](https://jobseekerss.netlify.app/)  
+
 ---
 
 ## 🔧 Technologies used
