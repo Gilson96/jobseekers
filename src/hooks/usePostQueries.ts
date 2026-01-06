@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
-import type { Application, Job, Saved_job, User } from "../dataTypes";
+import axios from "axios";
+import type { Job, Saved_job, User } from "../dataTypes";
 import { useUserLoginStore } from "./store";
 
 export const usePostLogin = () => {
@@ -49,8 +49,8 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
 export const usePostApplication = (guest_name: string, guest_email: string, guest_cv: string) => {
   const userLogin = useUserLoginStore(s => s.user)
   const { isPending, data, isError, isSuccess, mutate } =
-    useMutation<Application, AxiosError, { user_id: number, job_id: number }>({
-      mutationFn: ({ user_id, job_id }) => {
+    useMutation({
+      mutationFn: ({ user_id, job_id }: { user_id: number, job_id: number }) => {
         return axios
           .post(
             "https://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
@@ -63,20 +63,20 @@ export const usePostApplication = (guest_name: string, guest_email: string, gues
             if (userLogin.name === 'guest') {
               return axios
                 .post(
-                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
                   { application_id: application.application_id, job_id: application.job_id, guest_name, guest_email, guest_cv },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
-                ).then((res) => { return res.data })
+                ).then(() => { })
             } else {
               return Promise.all([axios
                 .post(
-                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
+                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
                   { application_id: application.application_id, user_id: application.user_id },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                 ),
               axios
                 .post(
-                  "http://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
                   { application_id: application.application_id, job_id: application.job_id },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                 )]

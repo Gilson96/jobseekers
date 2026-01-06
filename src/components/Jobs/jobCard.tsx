@@ -37,10 +37,7 @@ const JobCard = ({
                 Loading
               </span>
             ) : (
-              <>
-                <CircleCheck className="text-green-500" />
-                <span className="font-medium italic">Applied</span>
-              </>
+              <CircleCheck className="text-green-500" />
             )}
           </span>
         )}

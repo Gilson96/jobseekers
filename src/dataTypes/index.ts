@@ -69,7 +69,7 @@ export type User = {
     password?: string,
     number?: string,
     address?: string,
-    cv?: string
+    cv?: { data: number[], type: 'Buffer' }
     role?: string
     token?: string
     skills?: Skills_user[]

@@ -1,7 +1,6 @@
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import type { Job } from "../../dataTypes";
 
-
 export const ApplicationJobDetailsMobileView = ({ job }: { job: Job }) => {
   return (
     <section className="flex h-full w-full flex-col">
@@ -32,13 +31,13 @@ export const ApplicationJobDetailsMobileView = ({ job }: { job: Job }) => {
 
             <h3 className="py-[4%] text-lg font-medium">Job description</h3>
             <h4 className="pb-[2%] font-medium uppercase">About us</h4>
-            <p>{job?.description?.about_us}</p>
+            <p className="font-light">{job?.description?.about_us}</p>
             <h4 className="py-[2%] font-medium uppercase">
               What you going to do
             </h4>
-            <p>{job?.description?.job_details}</p>
+            <p className="font-light">{job?.description?.job_details}</p>
             <h4 className="py-[2%] font-medium uppercase">Requirements</h4>
-            <p>{job?.description?.requirements}</p>
+            <p className="font-light">{job?.description?.requirements}</p>
             <ul className="flex w-full flex-wrap gap-3 py-[5%]">
               {job?.skills?.map((skill) => (
                 <li className="w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600">

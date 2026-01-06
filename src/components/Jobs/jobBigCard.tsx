@@ -15,28 +15,28 @@ const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
     user?.user?.jobs_applied?.some((applied) => applied.job_id === job?.job_id);
 
   return (
-    <article className="sticky top-1 right-0 flex cursor-pointer flex-col rounded border p-[3%] transition-all transition-discrete hover:shadow max-lg:h-100 max-lg:overflow-y-auto lg:h-140 hover:[&>h2]:underline">
+    <article className="sticky top-1 right-0 flex cursor-pointer flex-col lg:rounded lg:border p-[3%] transition-all transition-discrete hover:shadow max-lg:h-100 max-lg:overflow-y-auto lg:h-140 hover:[&>h2]:underline">
       <h2
         className={`${jobFetching ? "animante my-[2%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[2%] text-xl font-bold"}`}
       >
         {job?.title}
       </h2>
       <p
-        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[1%]"} `}
+        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[2%]"} `}
       >
         {job?.company_name}
       </p>
       <p
-        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[1%]"} `}
+        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[2%]"} `}
       >
         {job?.location}
       </p>
       <p
-        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[1%]"} `}
+        className={`${jobFetching ? "animante my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[2%]"} `}
       >
         {job?.type}
       </p>
-      <div className="flex items-center gap-2 border-b pb-2">
+      <div className="flex items-center gap-2 border-b pb-4">
         {isJobApplied ? (
           <span className="flex items-center gap-1">
             {jobFetching ? (
@@ -62,8 +62,8 @@ const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
         )}
       </div>
       <div className="lg:overflow-y-auto">
-        <h3 className="py-[4%] text-lg font-medium">Job details</h3>
-        <div className="flex w-full flex-wrap items-center gap-3 border-b pb-[5%]">
+        <h3 className="py-[6%] text-lg font-medium">Job details</h3>
+        <div className="flex w-full flex-wrap items-center gap-3 border-b pb-[7%]">
           <span
             className={`${jobFetching ? "animante mx-[2%] my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600"} `}
           >
@@ -82,29 +82,29 @@ const JobBigCard = ({ job_id, guestUser, user }: JobCardProps) => {
         </div>
 
         <h3
-          className={`${jobFetching ? "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[4%] text-lg font-medium"}`}
+          className={`${jobFetching ? "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "py-[6%] text-lg font-medium"}`}
         >
           Job description
         </h3>
-        <h4 className="pb-[2%] font-medium uppercase">About us</h4>
+        <h4 className="pb-[5%] font-medium uppercase">About us</h4>
         <p
-          className={`${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
+          className={`font-light ${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
         >
           {job?.description?.about_us}
         </p>
-        <h4 className="py-[2%] font-medium uppercase">What you going to do</h4>
+        <h4 className="py-[5%] font-medium uppercase">What you going to do</h4>
         <p
-          className={`${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
+          className={`font-light ${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
         >
           {job?.description?.job_details}
         </p>
-        <h4 className="py-[2%] font-medium uppercase">Requirements</h4>
+        <h4 className="py-[5%] font-medium uppercase">Requirements</h4>
         <p
-          className={`${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
+          className={`font-light ${jobFetching && "animante my-[4%] w-40 animate-pulse bg-neutral-300 text-neutral-300"}`}
         >
           {job?.description?.requirements}
         </p>
-        <ul className="flex w-full flex-wrap gap-3 py-[2%]">
+        <ul className="flex w-full flex-wrap gap-3 py-[5%]">
           {job?.skills?.map((skill) => (
             <li
               className={`${jobFetching ? "animante mx-[2%] my-[1%] w-40 animate-pulse bg-neutral-300 text-neutral-300" : "w-auto rounded bg-neutral-200 px-[2%] py-[1%] text-center font-medium text-neutral-600"}`}

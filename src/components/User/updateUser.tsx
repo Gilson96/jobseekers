@@ -23,7 +23,12 @@ const UpdateUser = ({
       toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
       return setOpen(false);
     }
-  }, [isSuccess]);
+    if (isError) {
+      toast.error("Something went wrong, Try agan later.", {
+        style: { backgroundColor: "oklch(88.5% 0.062 18.334)" },
+      });
+    }
+  }, [isSuccess, isError]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,9 +49,6 @@ const UpdateUser = ({
     mutate(updatedUser);
   };
 
-  if (isError) {
-    return toast.error("Something went wrong, Try agan later.");
-  }
   return (
     <FormUserDetails
       buttonText="Update"

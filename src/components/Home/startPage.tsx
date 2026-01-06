@@ -18,7 +18,7 @@ const StartPage = () => {
       <p className="pt-[2%] text-xl font-medium max-[375px]:text-lg">
         An app that helps you find a job.
       </p>
-      <p className="pb-[4%] text-center">
+      <p className="pb-[4%] text-center font-light">
         See the app as a guest or sign in and see all the features of this app
       </p>
       <Link to={"/home"}>

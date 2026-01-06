@@ -21,7 +21,7 @@ const JobsMobiileView = ({
   if (isLoading || searchLoading) {
     return (
       <section className="py-[2%]">
-        <h2 className="font-medium">Jobs for you</h2>
+        <h2 className="text-xl">Jobs for you</h2>
         <Loader2Icon className="animate mt-[10%] w-full animate-spin place-self-center text-teal-600" />
       </section>
     );
@@ -30,7 +30,7 @@ const JobsMobiileView = ({
   if (isFetching || searchFetching) {
     return (
       <section className="py-[2%]">
-        <h2 className="pb-[5%] font-medium">Jobs for you</h2>
+        <h2 className="pb-[5%] text-xl">Jobs for you</h2>
         <JobCard
           guestUser={guestUser}
           user={user!}
@@ -44,7 +44,7 @@ const JobsMobiileView = ({
   }
   return (
     <ul>
-      <h2 className="pt-[2%] pb-[5%] font-medium">Jobs for you</h2>
+      <h2 className="pt-[2%] pb-[5%] text-xl">Jobs for you</h2>
       <Dialog>
         <DialogTrigger>
           <li className="flex flex-col gap-3">

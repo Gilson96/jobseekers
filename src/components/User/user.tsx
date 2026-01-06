@@ -6,6 +6,7 @@ import UpdateUser from "./updateUser";
 import UpdateSkills from "./updateSkills";
 import type { User as UserTypes } from "../../dataTypes";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const User = () => {
   const { isFetching, isLoading, userData } = useGetUser();
@@ -21,9 +22,15 @@ const User = () => {
 
   const user = userData as { user: UserTypes };
 
+  const convertedUserCvToBytes = new Uint8Array(user?.user?.cv?.data!);
+  const convertedUserCvToBlob = new Blob([convertedUserCvToBytes], {
+    type: "application/pdf",
+  });
+  const userCv = URL.createObjectURL(convertedUserCvToBlob);
+
   return (
     <section className="flex h-full w-full flex-col">
-      <section className="cursor-pointer border-b pt-[2%] pb-[5%] hover:bg-neutral-400/4 lg:flex lg:w-full lg:items-center lg:pb-[3%]">
+      <section className="cursor-pointer border-b pt-[5%] pb-[8%] hover:bg-neutral-400/4 lg:flex lg:w-full lg:items-center lg:pb-[3%]">
         <h2
           className={`${isFetching ? "animate my-[2%] animate-pulse bg-neutral-300 text-neutral-300" : "pb-[2%] text-lg font-medium lg:w-52 lg:p-0"} `}
         >
@@ -90,7 +97,18 @@ const User = () => {
         </Dialog>
       </section>
       <section>
-        <p>cv</p>
+        <Dialog>
+          <DialogTrigger className="flex w-full items-center lg:w-full">
+            <p className="pt-[5%] text-lg underline">User cv</p>
+          </DialogTrigger>
+          <DialogContent className="h-[80%] overflow-hidden">
+            <embed
+              src={userCv}
+              className="mt-2 h-full w-full overflow-hidden"
+              title="user CV"
+            />
+          </DialogContent>
+        </Dialog>
       </section>
     </section>
   );

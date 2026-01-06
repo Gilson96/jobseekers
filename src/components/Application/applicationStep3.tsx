@@ -5,6 +5,7 @@ import { usePostApplication } from "../../hooks/usePostQueries";
 import { Button } from "../ui/button";
 import { Loader2Icon } from "lucide-react";
 import { Navigate } from "react-router";
+import { useEffect } from "react";
 
 const ApplicationStep3 = ({
   step,
@@ -22,6 +23,17 @@ const ApplicationStep3 = ({
     userDetails?.email!,
     userGuestCv,
   );
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Success!", { style: { backgroundColor: "#b9f8cf" } });
+    }
+    if (isError) {
+      toast.error("Something went wrong, Try agan later.", {
+        style: { backgroundColor: "oklch(88.5% 0.062 18.334)" },
+      });
+    }
+  }, [isSuccess, isError]);
 
   const handleApplication = () => {
     if (user?.user?.user_id === undefined) {
@@ -43,9 +55,7 @@ const ApplicationStep3 = ({
   if (user?.user.user_id !== undefined && isSuccess) {
     return <Navigate to={"/myJobs"} />;
   }
-  if (isError) {
-    return toast.error("Somenthing went wrong. Try again later");
-  }
+
   return (
     <>
       {step === 3 && (
