@@ -2,9 +2,28 @@ import { ArrowRight, EarthIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useUserLoginStore } from "../../hooks/store";
 import { Link } from "react-router";
+import { useEffect } from "react";
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 const StartPage = () => {
   const setUserDetails = useUserLoginStore((s) => s.setUserDetails);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const prefetchJobs = () => {
+      queryClient.prefetchQuery({
+        queryKey: ["job"],
+        queryFn: () =>
+          axios
+            .get("https://jobseekers-api-c462d8f75521.herokuapp.com/api/job")
+            .then((res) => {
+              return res.data;
+            }),
+      });
+    };
+    prefetchJobs();
+  }, []);
 
   return (
     <section className="flex flex-col items-center justify-center gap-1">
@@ -23,9 +42,9 @@ const StartPage = () => {
       </p>
       <Link to={"/home"}>
         <Button
-          onClick={() =>
-            setUserDetails({ id: 1, name: "guest", jobs_applied: [] })
-          }
+          onClick={() => {
+            setUserDetails({ id: 1, name: "guest", jobs_applied: [] });
+          }}
           className="flex items-center gap-2"
         >
           <span>Continue as guest</span>
