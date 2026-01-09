@@ -52,7 +52,7 @@ const CompanyDashboard = () => {
   }
 
   return (
-    <section className="flex h-full w-full justify-between">
+    <section className="flex h-full w-full gap-10 justify-between">
       <section>
         <CompanyAllJobs
           isUserFetching={isUserFetching}

@@ -28,15 +28,15 @@ const CompanyJobDetails = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full px-[5%] py-[2%]">
+      <DialogTrigger className="w-[80%] px-[5%] py-[2%]">
         <p className="flex w-full cursor-pointer flex-col items-start justify-start hover:underline">
           <span className="text-lg">{title}</span>
-          <span className="text-sm font-light text-neutral-600">
+          <span className=" text-sm font-light text-neutral-600">
             {location}
           </span>
         </p>
       </DialogTrigger>
-      <DialogContent className="flex h-[70%] w-full flex-col items-start justify-around overflow-y-auto p-[3%]">
+      <DialogContent className="flex h-[70%] lg:h-[90%] w-full flex-col items-start justify-around overflow-y-auto p-[3%]">
         {isJobFetching || isJobLoading ? (
           <section className="mt-20 h-full w-full place-items-center items-center justify-center">
             <Loader2Icon className="animate animate-spin text-teal-500" />
