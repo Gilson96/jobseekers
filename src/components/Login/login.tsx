@@ -35,22 +35,31 @@ const Login = () => {
     return <Navigate to="/home" replace />;
   }
   return (
-    <section className="flex h-[80vh] flex-col place-items-center items-center justify-center">
+    <section className="flex h-[90vh] flex-col place-items-center items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="flex w-[80%] flex-col justify-center gap-3 rounded border p-[3%] lg:h-screen lg:w-[40%]"
+        className="flex w-[80%] flex-col justify-center gap-3 rounded border p-[3%] lg:w-[40%]"
       >
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>
-              <p className="text-xs">
-                {" "}
-                A sample account is provided — just copy and paste the email to
-                log in.
-              </p>
+              <p className="text-xs"> Copy and paste the email to log in.</p>
             </AccordionTrigger>
-            <AccordionContent>
-              user@user.com, talentbridge@company.com
+            <AccordionContent className="flex flex-col gap-1">
+              <div className="border-b pb-2">
+                <p className="font-medium">User login</p>
+                <p>- user@user.com</p>
+              </div>
+              <div>
+                <p className="font-medium">Admin login</p>
+                <ul className="flex flex-col gap-1">
+                  <li>- talentbridge@company.com</li>
+                  <li>- elevatehire@company.com</li>
+                  <li>- nextstep@company.com</li>
+                  <li>- vertextalent@company.com</li>
+                  <li>- brightpath@company.com</li>
+                </ul>
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
