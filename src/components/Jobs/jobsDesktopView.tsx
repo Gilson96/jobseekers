@@ -28,7 +28,7 @@ const Jobs = ({
     }
   }, [searchedJob]);
 
-  if (!isLoading || !searchLoading) {
+  if (isLoading || searchLoading) {
     return (
       <section className="py-[2%]">
         <h2 className="text-xl">Jobs for you</h2>

@@ -17,7 +17,7 @@ const JobsMobiileView = ({
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const [job_id, setJob_id] = useState(1);
 
-  if (!isLoading || !searchLoading) {
+  if (isLoading || searchLoading) {
     return (
       <section className="py-[2%]">
         <h2 className="text-xl">Jobs for you</h2>
