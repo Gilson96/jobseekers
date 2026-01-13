@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { useGetAllJobs } from "../../hooks/useGetQueries";
-import { Loader2Icon } from "lucide-react";
 import JobCard from "./jobCard";
 import type { JobSearch } from "../../dataTypes";
 import { useState } from "react";
@@ -18,11 +17,26 @@ const JobsMobiileView = ({
   const { jobs, isFetching, isLoading } = useGetAllJobs();
   const [job_id, setJob_id] = useState(1);
 
-  if (isLoading || searchLoading) {
+  if (!isLoading || !searchLoading) {
     return (
       <section className="py-[2%]">
         <h2 className="text-xl">Jobs for you</h2>
-        <Loader2Icon className="animate mt-[10%] w-full animate-spin place-self-center text-teal-600" />
+        <div className="mt-3 flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline">
+          <span className="animate animate-pulse bg-neutral-300 text-neutral-300">
+            loading
+          </span>
+          <span className="animate mt-4 w-40 animate-pulse bg-neutral-300 text-neutral-300">
+            loading
+          </span>
+          <div className="flex items-center justify-between gap-10">
+            <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+            <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+          </div>
+        </div>
       </section>
     );
   }

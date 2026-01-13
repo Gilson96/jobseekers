@@ -28,6 +28,47 @@ const Jobs = ({
     }
   }, [searchedJob]);
 
+  if (!isLoading || !searchLoading) {
+    return (
+      <section className="py-[2%]">
+        <h2 className="text-xl">Jobs for you</h2>
+        <div className="flex items-center justify-center gap-40">
+          <div className="mt-3 flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline">
+            <span className="animate animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+            <span className="animate mt-4 w-40 animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+            <div className="flex items-center justify-between gap-10">
+              <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+                loading
+              </span>
+              <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+                loading
+              </span>
+            </div>
+          </div>
+          <div className="mt-3 flex w-full cursor-pointer flex-col items-start rounded border p-[3%] hover:shadow hover:[&>h2]:underline">
+            <span className="animate animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+            <span className="animate mt-4 w-40 animate-pulse bg-neutral-300 text-neutral-300">
+              loading
+            </span>
+            <div className="flex items-center justify-between gap-10">
+              <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+                loading
+              </span>
+              <span className="animate mt-4 animate-pulse bg-neutral-300 text-neutral-300">
+                loading
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (mobileView) {
   } else {
