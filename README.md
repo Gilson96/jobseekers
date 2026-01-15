@@ -20,13 +20,13 @@ It allows companies to create and manage job listings, and users to search for r
 
 ---
 
-## 🔑 Demo Credentials
+## Demo Credentials
 
 > Demo login emails are shown directly on the login screen.
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 
 **Frontend**
 - React
@@ -43,7 +43,7 @@ It allows companies to create and manage job listings, and users to search for r
   
 ---
 
-## 📸 Project Screenshot
+## Project Screenshot
 
 ![project screenshot](https://github.com/Gilson96/jobseekers/blob/master/src/assets/projectScreenshot.png?raw=true)
 
@@ -82,7 +82,7 @@ Admins can:
 
 ---
 
-## ▶️ How to Run Locally
+## How to Run Locally
 
 ```bash
 git clone https://github.com/Gilson96/jobseekers.git
@@ -93,10 +93,7 @@ npm install
 npm run dev
 ```
 
-## 🤝 Contact
+## Contact
 
-👤 GitHub: @Gilson96
-
-💼 LinkedIn:  https://www.linkedin.com/in/gilson-de-almeida
-
-📧 Email: grafael99@gmail.com
+LinkedIn:  https://www.linkedin.com/in/gilson-de-almeida
+Email: grafael99@gmail.com
