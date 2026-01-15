@@ -1,24 +1,45 @@
 # Jobseekers
 
-This application is a job board platform where companies post job openings and job seekers search for and apply to them.
+Jobseekers is a full-stack job board application inspired by platforms like Indeed.
 
-> Demo login credentials for all user roles are provided within the application.
+It allows companies to create and manage job listings, and users to search for roles, apply, and track applications.
 
 **Live Demo**: [https://jobseekerss.netlify.app](https://jobseekerss.netlify.app/)  
+**Backend API**: [https://github.com/Gilson96/jobseekers-api](https://github.com/Gilson96/jobseekers-api/)
 
 ---
 
-## 🔧 Technologies used
+## Main features:
 
-- **React**
-- **React-router**
-- **axios**
-- **Typescript**
-- **Tanstack/react-query**
-- **Tailwindcss**
-- **Shadcn**
-- **Zustand**
-- **Netlify**
+- Roles access (**Guest / User / Admin**)
+- Many-to-many relationships,
+- JWT authentication
+- Full CRUD operations across jobs, companies, skills, and applications
+- Application workflows: job posting, applying for jobs, and application tracking
+- Deployed frontend + backend
+
+---
+
+## 🔑 Demo Credentials
+
+> Demo login emails are shown directly on the login screen.
+
+---
+
+## 🛠 Technologies Used
+
+**Frontend**
+- React
+- TypeScript
+- React Router
+- TanStack React Query
+- Zustand
+- Tailwind CSS
+- shadcn/ui
+
+**Tooling & Deployment**
+- Axios
+- Netlify
   
 ---
 
@@ -28,7 +49,7 @@ This application is a job board platform where companies post job openings and j
 
 ---
 
-## Modes and features
+## What each user can do:
 
 **Guest Mode**
 
@@ -64,8 +85,8 @@ Admins can:
 ## ▶️ How to Run Locally
 
 ```bash
-git clone https://github.com/Gilson96/jobseekers-api.git
-cd jobseekers-api
+git clone https://github.com/Gilson96/jobseekers.git
+cd jobseekers
 npm install
 
 # Start the development server
@@ -76,6 +97,6 @@ npm run dev
 
 👤 GitHub: @Gilson96
 
-💼 LinkedIn: www.linkedin.com/in/gilson-de-almeida
+💼 LinkedIn:  https://www.linkedin.com/in/gilson-de-almeida
 
 📧 Email: grafael99@gmail.com
