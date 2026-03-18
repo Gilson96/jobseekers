@@ -7,7 +7,7 @@ export const usePrefetchAllJobs = async () => {
         queryKey: ['job'],
         queryFn: () =>
             axios
-                .get("https://jobseekers-api-c462d8f75521.herokuapp.com/api/job",
+                .get("https://jobseekers-api.vercel.app/api/job",
                 )
                 .then((res) => {
                     return res.data;

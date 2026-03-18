@@ -12,7 +12,7 @@ export const useUpdateUser = () => {
             mutationFn: (user: User) => {
                 return axios
                     .patch(
-                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/${userLogin.id}`,
+                        `https://jobseekers-api.vercel.app/api/user/${userLogin.id}`,
                         user,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
@@ -35,7 +35,7 @@ export const useUpdateCompany = (company_id: number) => {
             mutationFn: (company: Company) => {
                 return axios
                     .patch(
-                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/company/${userLogin.id}`,
+                        `https://jobseekers-api.vercel.app/api/company/${userLogin.id}`,
                         company,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )
@@ -58,7 +58,7 @@ export const useUpdateJob = (job_id: number) => {
             mutationFn: (job: Job) => {
                 return axios
                     .patch(
-                        `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/${job_id}`,
+                        `https://jobseekers-api.vercel.app/api/job/${job_id}`,
                         job,
                         { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                     )

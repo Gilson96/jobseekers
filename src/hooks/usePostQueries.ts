@@ -10,7 +10,7 @@ export const usePostLogin = () => {
       mutationFn: (login: User) => {
         return axios
           .post(
-            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/login",
+            "https://jobseekers-api.vercel.app/api/login",
             login,
           )
           .then((res) => {
@@ -32,7 +32,7 @@ export const usePostSavedJobs = (save_job: Saved_job) => {
       mutationFn: () => {
         return axios
           .post(
-            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/saved_job",
+            "https://jobseekers-api.vercel.app/api/user/saved_job",
             { user_id: save_job.user_id, job_id: save_job.job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -53,7 +53,7 @@ export const usePostApplication = (guest_name: string, guest_email: string, gues
       mutationFn: ({ user_id, job_id }: { user_id: number, job_id: number }) => {
         return axios
           .post(
-            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/application",
+            "https://jobseekers-api.vercel.app/api/application",
             { user_id: user_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -63,20 +63,20 @@ export const usePostApplication = (guest_name: string, guest_email: string, gues
             if (userLogin.name === 'guest') {
               return axios
                 .post(
-                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  "https://jobseekers-api.vercel.app/api/job/application_job",
                   { application_id: application.application_id, job_id: application.job_id, guest_name, guest_email, guest_cv },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                 ).then(() => { })
             } else {
               return Promise.all([axios
                 .post(
-                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/application_user",
+                  "https://jobseekers-api.vercel.app/api/user/application_user",
                   { application_id: application.application_id, user_id: application.user_id },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                 ),
               axios
                 .post(
-                  "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/application_job",
+                  "https://jobseekers-api.vercel.app/api/job/application_job",
                   { application_id: application.application_id, job_id: application.job_id },
                   { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
                 )]
@@ -98,7 +98,7 @@ export const usePostSkillsUser = () => {
       mutationFn: ({ skills_id, user_id }: { skills_id: number, user_id: number }) => {
         return axios
           .post(
-            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/user/skills_user",
+            "https://jobseekers-api.vercel.app/api/user/skills_user",
             { skills_id: skills_id, user_id: user_id }, { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
           .then(() => { })
@@ -120,7 +120,7 @@ export const usePostSkillsJob = (job_id: number) => {
       mutationFn: ({ skills_id, job_id }: { skills_id: number, job_id: number }) => {
         return axios
           .post(
-            "https://jobseekers-api-c462d8f75521.herokuapp.com/api/job/skills_job",
+            "https://jobseekers-api.vercel.app/api/job/skills_job",
             { skills_id: skills_id, job_id: job_id },
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -146,7 +146,7 @@ export const usePostJob = (company_id: number) => {
       mutationFn: (job: Job) => {
         return axios
           .post(
-            `https://jobseekers-api-c462d8f75521.herokuapp.com/api/job`,
+            `https://jobseekers-api.vercel.app/api/job`,
             job,
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
@@ -169,7 +169,7 @@ export const usePostUser = () => {
       mutationFn: (user: User) => {
         return axios
           .post(
-            `https://jobseekers-api-c462d8f75521.herokuapp.com/api/user`,
+            `https://jobseekers-api.vercel.app/api/user`,
             user,
             { headers: { "Authorization": `Bearer ${userLogin?.token}` } }
           )
